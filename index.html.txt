@@ -22,7 +22,7 @@
 html,body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 main{max-width:760px;margin:0 auto;padding:0 12px 120px}
 .hd{background:var(--hd);color:#fff;margin:0 -12px 12px;padding:16px 16px 18px;border-radius:0 0 22px 22px}
-.hd h1{margin:0;font-size:20px}.hd .s{opacity:.8;font-size:13px}
+.hd h1{margin:0;font-size:20px}.hd .s{opacity:.85;font-size:13px}
 .st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
 .st button{border:0;border-radius:14px;padding:10px 6px;color:#fff;text-align:center;font-size:12px;background:rgba(255,255,255,.14);cursor:pointer}
 .st button.on{background:#fff;color:#14181f;font-weight:700}
@@ -65,7 +65,6 @@ nav .bg{position:absolute;top:2px;left:calc(50% + 5px);background:var(--rd);colo
 .bk{background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:10px;padding:6px 12px;cursor:pointer}
 .pill{background:rgba(255,255,255,.2);border-radius:12px;padding:3px 10px;font-size:11px}
 .pl{font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;color:#fff}.p0{background:var(--rd)}.p1{background:var(--am)}.p2{background:var(--bl)}
-.hero{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin:10px 0}
 .qk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.qk button{border:0;background:none;color:var(--tx);font:inherit;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
 .qk span{width:50px;height:50px;border-radius:50%;background:color-mix(in srgb,var(--ac) 14%,var(--card));display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--bd)}
 .sv{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:12px;font-size:11px;background:rgba(0,0,0,.7);color:#fff;padding:3px 10px;border-radius:12px;z-index:90;opacity:0;transition:opacity .3s;pointer-events:none}
@@ -79,6 +78,13 @@ nav .bg{position:absolute;top:2px;left:calc(50% + 5px);background:var(--rd);colo
 <div id="md"><div id="mb"></div></div>
 
 <script>
+window.onerror=function(msg,url,line){
+  var el=document.getElementById("m");
+  if(el&&!el.innerHTML){
+    el.innerHTML='<div style="padding:20px;color:red;background:#fff;border-radius:10px;margin:20px 0"><b>System Notice:</b> '+msg+' (Line '+line+')</div>';
+  }
+};
+
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const p2=n=>String(n).padStart(2,"0");
@@ -97,7 +103,7 @@ const KINDS=["Insurance","Fitness","Pollution","Permit","National Permit","Road 
 const REQ={Truck:["Insurance","Fitness","Permit","Pollution","Road Tax"],Poclain:["Insurance","Fitness"],JCB:["Insurance","Fitness"],Tractor:["Insurance","Fitness"],Car:["Insurance","Pollution"],Bike:["Insurance","Pollution"]};
 
 let FIRMS=["Firm A","Firm B"], V=[], D=[], E=[], Sv=[];
-let tab="board", bf=null, cur=null, q="", cf="All", sf="All", cm=0, cd=off(0), rp="e", eo=true, rf="All", ff="All", vt="alerts", lastCur=null;
+let tab="board", bf=null, cur=null, q="", cf="All", sf="All", cm=0, cd=off(0), rp="e", eo=true, rf="All", ff="All", vt="alerts";
 let tg=null, _rpd=null, RT="";
 
 const veh=i=>V.find(x=>x.id==i)||{id:i,no:"-",nm:"-",c:"Truck",rd:0,f:""};
@@ -105,29 +111,54 @@ const vn=i=>veh(i).no;
 const fnd=(t,i)=>(t=="d"?D:t=="e"?E:Sv).find(x=>x.id==i);
 const missing=v=>(REQ[v.c]||[]).filter(k=>!D.some(d=>d.vid==v.id&&d.k==k));
 
+const fmtPlate=n=>{
+  const s=String(n||"").toUpperCase().replace(/\s|-/g,"");
+  const m=s.match(/^([A-Z]{2})(\d{1,2})([A-Z]{1,3})(\d{4})$/);
+  return m ? (m[1]+" "+m[2]+" "+m[3]+" "+m[4]) : (n||"");
+};
+
 const LOCAL_KEY="fleet_control_room_data_v2";
-function setSaved(t){const e=$("#sv");if(!e)return;e.textContent=t;e.style.opacity=1;setTimeout(()=>e.style.opacity=0,1500)}
+function setSaved(t){const e=$("#sv");if(!e)return;e.textContent=t;e.style.opacity=1;setTimeout(()=>{if(e)e.style.opacity=0},1500)}
+
 function saveLocal(){
-  localStorage.setItem(LOCAL_KEY,JSON.stringify({V,D,E,Sv,FIRMS,CUST}));
-  setSaved("Saved ✓");
+  try{
+    localStorage.setItem(LOCAL_KEY,JSON.stringify({V,D,E,Sv,FIRMS,CUST}));
+    setSaved("Saved ✓");
+  }catch(err){}
 }
+
 function loadLocal(){
-  const str=localStorage.getItem(LOCAL_KEY);
-  if(str){
-    try{
+  try{
+    const str=localStorage.getItem(LOCAL_KEY);
+    if(str){
       const o=JSON.parse(str);
-      V=o.V||[];D=o.D||[];E=o.E||[];Sv=o.Sv||[];
-      if(o.FIRMS&&o.FIRMS.length)FIRMS=o.FIRMS;
-      if(o.CUST)CUST=o.CUST;
-    }catch(e){}
-  }
+      V=Array.isArray(o.V)?o.V:[];
+      D=Array.isArray(o.D)?o.D:[];
+      E=Array.isArray(o.E)?o.E:[];
+      Sv=Array.isArray(o.Sv)?o.Sv:[];
+      if(Array.isArray(o.FIRMS)&&o.FIRMS.length)FIRMS=o.FIRMS;
+      if(Array.isArray(o.CUST))CUST=o.CUST;
+    }
+  }catch(err){}
 }
 
 function items(){
   const r=[];
-  D.forEach(o=>{const k=dd(o.ex);if(k<=30)r.push({t:"d",o,lv:k<0?0:k<=7?1:2,x:`${o.k} ${k<0?"expired "+(-k)+" days ago":k==0?"expires today":"expires in "+k+" days"}`,w:k})});
-  E.forEach(o=>{const k=dd(o.due);if(k<=5)r.push({t:"e",o,lv:k<0?0:1,x:`EMI Rs ${o.amt} (${o.ln}) ${k<0?"overdue by "+(-k)+" days":k==0?"due today":"due in "+k+" days"}`,w:k})});
-  Sv.forEach(o=>{const v=veh(o.vid),l=o.last+o.int-v.rd,th=Math.max(1,o.int/10);if(l<=th)r.push({t:"s",o,lv:l<0?0:1,x:`${o.lb} ${l<0?"overdue by "+(-l):"due in "+l} ${unit(v.c)}`,w:l<0?-1:3})});
+  D.forEach(o=>{
+    if(!o||!o.ex)return;
+    const k=dd(o.ex);
+    if(k<=30)r.push({t:"d",o,lv:k<0?0:k<=7?1:2,x:`${o.k} ${k<0?"expired "+(-k)+" days ago":k==0?"expires today":"expires in "+k+" days"}`,w:k});
+  });
+  E.forEach(o=>{
+    if(!o||!o.due)return;
+    const k=dd(o.due);
+    if(k<=5)r.push({t:"e",o,lv:k<0?0:1,x:`EMI Rs ${o.amt} (${o.ln}) ${k<0?"overdue by "+(-k)+" days":k==0?"due today":"due in "+k+" days"}`,w:k});
+  });
+  Sv.forEach(o=>{
+    if(!o)return;
+    const v=veh(o.vid),l=(o.last||0)+(o.int||0)-(v.rd||0),th=Math.max(1,(o.int||500)/10);
+    if(l<=th)r.push({t:"s",o,lv:l<0?0:1,x:`${o.lb} ${l<0?"overdue by "+(-l):"due in "+l} ${unit(v.c)}`,w:l<0?-1:3});
+  });
   return r.sort((a,b)=>a.lv-b.lv||a.w-b.w);
 }
 
@@ -160,9 +191,9 @@ function taskCard(x){
 }
 
 function bsearch(query){
-  const el=$("#bres");if(!query.trim()){el.innerHTML="";return}
+  const el=$("#bres");if(!query||!query.trim()){el.innerHTML="";return}
   const qk=query.replace(/\s/g,"").toLowerCase();
-  const r=V.filter(v=>v.no.toLowerCase().includes(qk)||v.nm.toLowerCase().includes(qk)||(v.f||"").toLowerCase().includes(qk)).slice(0,6);
+  const r=V.filter(v=>(v.no||"").toLowerCase().includes(qk)||(v.nm||"").toLowerCase().includes(qk)||(v.f||"").toLowerCase().includes(qk)).slice(0,6);
   el.innerHTML=r.length?r.map(v=>`<div class="c" style="margin:4px 0;cursor:pointer;padding:8px 12px" onclick="cur='${v.id}';tab='fleet';render()"><div class="r"><span class="plate sm ${v.c=="Truck"?"yl":""}"><i>IND</i><b>${esc(fmtPlate(v.no))}</b></span><span class="mu sp">${esc(v.nm)} · ${esc(v.c)} · ${esc(v.f||"")}</span><span>›</span></div></div>`).join(""):'<div class="mu" style="padding:6px 0">No matching vehicle found.</div>';
 }
 
@@ -175,7 +206,7 @@ function vFleet(){
   <div class="chips">${["All",...CATS.map(c=>c[0])].map(c=>`<button class="${cf==c?"on":""}" onclick="cf='${c}';render()">${c}</button>`).join("")}</div>
   <div class="chips">${["All",...FIRMS].map(f=>`<button class="${ff==f?"on":""}" onclick="ff='${f}';render()">${esc(f)}</button>`).join("")}</div>
   <div class="chips">${[["All","All"],["Red","Late / this week"],["Amber","This month"],["Miss","Missing papers"]].map(([k,l])=>`<button class="${sf==k?"on":""}" onclick="sf='${k}';render()">${l}</button>`).join("")}</div>`+
-  CATS.map(([c])=>{const g=vs.filter(v=>v.c==c);return g.length?`<h3>${ico(c)} ${c} (${g.length})</h3><div class="wall">${g.map(v=>`<button class="tl ${lv[v.id]<=1?"r0":lv[v.id]==2?"r1":""}" onclick="cur='${v.id}';render();scrollTo(0,0)"><span>${ico(c)}</span>${esc(v.no.slice(-6))}</button>`).join("")}</div>`:""}).join("")+
+  CATS.map(([c])=>{const g=vs.filter(v=>v.c==c);return g.length?`<h3>${ico(c)} ${c} (${g.length})</h3><div class="wall">${g.map(v=>`<button class="tl ${lv[v.id]<=1?"r0":lv[v.id]==2?"r1":""}" onclick="cur='${v.id}';render();scrollTo(0,0)"><span>${ico(c)}</span>${esc(String(v.no).slice(-6))}</button>`).join("")}</div>`:""}).join("")+
   addVForm();
 }
 
@@ -396,7 +427,7 @@ function downloadBlob(blob,filename){
   a.download=filename;
   document.body.appendChild(a);
   a.click();
-  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},200);
+  setTimeout(()=>{try{document.body.removeChild(a);URL.revokeObjectURL(url);}catch(e){}},300);
 }
 
 function repImg(){
@@ -462,7 +493,7 @@ function closeM(){$("#md").style.display="none"}
 
 function addNow(){
   tab="fleet";cur=null;render();
-  setTimeout(()=>{const e=$("#vno");e&&e.scrollIntoView({behavior:"smooth",block:"center"});e&&e.focus()},60);
+  setTimeout(()=>{const e=$("#vno");if(e){e.scrollIntoView({behavior:"smooth",block:"center"});e.focus()}},60);
 }
 
 function addVForm(){
@@ -551,15 +582,21 @@ $("#fi").onchange=e=>{
 };
 function rmF(did,idx){const o=fnd("d",did);if(o&&o.fs){o.fs.splice(idx,1);saveLocal();render()}}
 
-const fmtPlate=n=>{const m=String(n).match(/^([A-Z]{2})(\d{1,2})([A-Z]{1,3})(\d{4})$/);return m?m.slice(1).join(" "):n};
-
 function welcome(){
   return hdr("Welcome to Fleet Control Room","Manage vehicles, machinery, papers and loans")+
   `<div class="c"><b>Get Started</b><p class="mu">No vehicles registered yet. Add your first vehicle below to begin tracking.</p>${addVForm()}</div>`;
 }
 
-loadLocal();
-render();
+// Safe bootstrap
+try {
+  loadLocal();
+} catch(e) {}
+
+try {
+  render();
+} catch(e) {
+  document.getElementById("m").innerHTML = welcome();
+}
 </script>
 </body>
 </html>
