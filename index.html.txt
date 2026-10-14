@@ -6,690 +6,972 @@
 <title>Fleet Control Room</title>
 <style>
 :root{
-  --bg:#f2f4f8;--card:#ffffff;--tx:#14181f;--mu:#6b7482;--bd:#e3e7ee;
-  --ac:#0b6e4f;--rd:#d93636;--am:#e08a00;--gn:#1a9a62;--bl:#2f6fed;
-  --hd:linear-gradient(135deg,#0b3d2e,#0b6e4f);
-  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);
+  --bg:#f3f4f6;--card:#ffffff;--tx:#111827;--mu:#6b7280;--bd:#e5e7eb;
+  --ac:#0b6e4f;--rd:#dc2626;--am:#d97706;--gn:#16a34a;--bl:#2563eb;
+  --hd:linear-gradient(135deg,#064e3b,#0b6e4f);
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0f1318;--card:#1a2028;--tx:#e9ecf1;--mu:#98a2b0;--bd:#29313c;
-    --ac:#3ecf8e;--rd:#ff6b66;--am:#f5b02e;--gn:#3ecf8e;--bl:#6b9bff;
-    --hd:linear-gradient(135deg,#0b2a21,#0f5a42);
+  :root{
+    --bg:#0f172a;--card:#1e293b;--tx:#f8fafc;--mu:#94a3b8;--bd:#334155;
+    --ac:#10b981;--rd:#ef4444;--am:#f59e0b;--gn:#10b981;--bl:#3b82f6;
+    --hd:linear-gradient(135deg,#022c22,#064e3b);
   }
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:760px;margin:0 auto;padding:0 12px 120px}
-.hd{background:var(--hd);color:#fff;margin:0 -12px 12px;padding:16px 16px 18px;border-radius:0 0 22px 22px}
-.hd h1{margin:0;font-size:20px}.hd .s{opacity:.85;font-size:13px}
-.st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.st button{border:0;border-radius:14px;padding:10px 6px;color:#fff;text-align:center;font-size:12px;background:rgba(255,255,255,.14);cursor:pointer}
-.st button.on{background:#fff;color:#14181f;font-weight:700}
-.st b{display:block;font-size:22px}
-.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin:8px 0}
-.r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp{flex:1}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:0 12px 110px}
+.hd{background:var(--hd);color:#fff;margin:0 -12px 14px;padding:18px 16px;border-radius:0 0 20px 20px}
+.hd h1{font-size:20px;font-weight:700}.hd .s{font-size:12px;opacity:.85;margin-top:2px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin:10px 0}
+.r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.sp{flex:1}
 .mu{color:var(--mu);font-size:12px}
-input,select,textarea{width:100%;padding:9px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font:inherit;margin:3px 0}
-button.b{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer}
-button.s,a.s{background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:7px 11px;font-size:12px;text-decoration:none;display:inline-block;cursor:pointer}
-button.nd{background:transparent;color:var(--rd);border:1px solid var(--rd);border-radius:10px;padding:7px 11px;font-size:12px;cursor:pointer}
+input,select{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font:inherit;margin:4px 0}
+button.b{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer}
+button.s,a.s{background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;font-size:12px;text-decoration:none;display:inline-block;cursor:pointer}
+button.nd{background:transparent;color:var(--rd);border:1px solid var(--rd);border-radius:8px;padding:7px 11px;font-size:12px;cursor:pointer}
+.l0{border-left:4px solid var(--rd)}.l1{border-left:4px solid var(--am)}.l2{border-left:4px solid var(--bl)}
+.t0{color:var(--rd);font-weight:600}.t1{color:var(--am);font-weight:600}.t2{color:var(--bl);font-weight:600}
+.plate{display:inline-flex;background:#fff;color:#000;border:2px solid #000;border-radius:6px;overflow:hidden;font:700 15px/1 monospace;letter-spacing:.05em}
+.plate i{background:#1e40af;color:#fff;font-size:8px;font-style:normal;padding:4px 3px;display:flex;align-items:center}
+.plate b{padding:4px 8px}.plate.yl{background:#facc15}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.st button{border:0;border-radius:10px;padding:8px 4px;color:#fff;text-align:center;font-size:11px;background:rgba(255,255,255,.16);cursor:pointer}
+.st button.on{background:#fff;color:#064e3b;font-weight:700}
+.st b{display:block;font-size:20px}
 .chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0}
-.chips button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:6px 12px;border-radius:18px;font-size:12px;cursor:pointer}
+.chips button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:6px 12px;border-radius:16px;font-size:12px;cursor:pointer}
 .chips button.on{background:var(--tx);color:var(--bg);font-weight:600}
-.l0{border-left:5px solid var(--rd)}.l1{border-left:5px solid var(--am)}.l2{border-left:5px solid var(--bl)}
-.t0{color:var(--rd);font-weight:600}.t1{color:var(--am);font-weight:600}.t2{color:var(--bl);font-weight:600}.ok{color:var(--gn);font-weight:600}
-h3{margin:16px 2px 4px;font-size:13px;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
-.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:6px}
-.tl{border-radius:12px;padding:7px 4px;text-align:center;color:#fff;font-size:11px;line-height:1.2;border:0;background:var(--gn);cursor:pointer}
-.tl.r0{background:var(--rd)}.tl.r1{background:var(--am)}.tl span{display:block;font-size:17px}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
-.cal button{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:6px 0;font-size:12px;min-height:42px;cursor:pointer}
-.cal button.sel{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
-.cal button.td{border-color:var(--bl);color:var(--bl);font-weight:700}
-nav{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:740px;margin:0 auto;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:22px;box-shadow:0 8px 28px rgba(0,0,0,.18);display:flex;gap:2px;padding:6px;z-index:5}
-nav button{position:relative;flex:1;border:0;background:none;color:var(--mu);font:inherit;font-size:11px;padding:7px 0;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
-nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-nav button.on{background:color-mix(in srgb,var(--ac) 15%,transparent);color:var(--ac);font-weight:700}
-nav .bg{position:absolute;top:2px;left:calc(50% + 5px);background:var(--rd);color:#fff;border-radius:9px;font-size:10px;font-weight:700;min-width:16px;height:16px;line-height:16px;padding:0 3px}
-#md{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:99;padding:16px}
-#md>div{background:var(--card);border-radius:16px;padding:16px;max-width:440px;width:100%;max-height:85vh;overflow-y:auto}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.plate{display:inline-flex;align-items:stretch;background:#fff;color:#111;border:2px solid #111;border-radius:8px;overflow:hidden;font:700 18px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em}
-.plate i{background:#1b4fd8;color:#fff;font-size:8px;font-style:normal;padding:0 4px;display:flex;align-items:center}
-.plate b{padding:6px 10px;font-weight:700}.plate.yl{background:#f6c915}
-.plate.sm{font-size:11px;border-width:1.5px;border-radius:6px}.plate.sm i{font-size:6px;padding:0 3px}.plate.sm b{padding:3px 6px}
-.vh{background:var(--hd);color:#fff;margin:0 -12px 10px;padding:14px 16px;border-radius:0 0 22px 22px;text-align:center}
-.vh .ic{font-size:52px;line-height:1;margin:4px 0 8px}.vh .nm{opacity:.85;font-size:13px;margin-top:6px}
-.bk{background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:10px;padding:6px 12px;cursor:pointer}
-.pill{background:rgba(255,255,255,.2);border-radius:12px;padding:3px 10px;font-size:11px}
-.pl{font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;color:#fff}.p0{background:var(--rd)}.p1{background:var(--am)}.p2{background:var(--bl)}
-.qk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.qk button{border:0;background:none;color:var(--tx);font:inherit;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-.qk span{width:50px;height:50px;border-radius:50%;background:color-mix(in srgb,var(--ac) 14%,var(--card));display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--bd)}
-.sv{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:12px;font-size:11px;background:rgba(0,0,0,.7);color:#fff;padding:3px 10px;border-radius:12px;z-index:90;opacity:0;transition:opacity .3s;pointer-events:none}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px;margin:8px 0}
+.tl{border-radius:10px;padding:8px 4px;text-align:center;color:#fff;font-size:11px;border:0;background:var(--gn);cursor:pointer}
+.tl.r0{background:var(--rd)}.tl.r1{background:var(--am)}.tl span{display:block;font-size:18px}
+nav{position:fixed;bottom:10px;left:10px;right:10px;max-width:740px;margin:0 auto;background:var(--card);border:1px solid var(--bd);border-radius:18px;display:flex;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:10}
+nav button{flex:1;border:0;background:none;color:var(--mu);font:inherit;font-size:11px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2}
+nav button.on{color:var(--ac);font-weight:700}
+#md{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:99;padding:14px}
+#md>div{background:var(--card);border-radius:14px;padding:16px;max-width:440px;width:100%;max-height:85vh;overflow-y:auto}
+#sv{position:fixed;top:10px;right:12px;font-size:11px;background:#000;color:#fff;padding:4px 10px;border-radius:10px;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
 </style>
 </head>
 <body>
-<main id="m">
-  <div class="hd"><h1>Fleet Control Room</h1><div class="s">Loading console...</div></div>
-</main>
+<main id="app"></main>
 <nav id="nav"></nav>
-<div class="sv" id="sv"></div>
+<div id="sv"></div>
 <div id="md"><div id="mb"></div></div>
 
 <script>
-(function(){
-  function $(s){return document.querySelector(s);}
-  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
-  function p2(n){return String(n).padStart(2,"0");}
-  function fmt(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());}
-  function off(n){var d=new Date();d.setDate(d.getDate()+n);return fmt(d);}
-  function dd(d){return Math.round((new Date(d+"T00:00:00")-new Date().setHours(0,0,0,0))/864e5);}
-  function addM(d){var x=new Date(d+"T00:00:00");x.setMonth(x.getMonth()+1);return fmt(x);}
-  function inr(n){return "₹"+Number(n||0).toLocaleString("en-IN");}
-  function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+var DB = {
+  V: [],
+  D: [],
+  E: [],
+  Sv: [],
+  FIRMS: ["Firm A", "Firm B"]
+};
 
-  var CATS=[["Truck","🚚"],["Poclain","🏗️"],["JCB","🚜"],["Tractor","🚜"],["Car","🚗"],["Bike","🏍️"]];
-  var CUST=[];
-  function unit(c){
-    for(var i=0;i<CUST.length;i++){if(CUST[i].n==c)return CUST[i].u;}
-    return /Poclain|JCB|Tractor/.test(c)?"hrs":"km";
-  }
-  function ico(c){
-    for(var i=0;i<CATS.length;i++){if(CATS[i][0]==c)return CATS[i][1];}
-    return "🚘";
-  }
+var CATS = [["Truck","🚚","km"],["Poclain","🏗️","hrs"],["JCB","🚜","hrs"],["Tractor","🚜","hrs"],["Car","🚗","km"],["Bike","🏍️","km"]];
+var KINDS = ["Insurance","Fitness","Pollution","Permit","National Permit","Road Tax","RC","Loan Papers","Other"];
+var REQ = {
+  Truck: ["Insurance","Fitness","Permit","Pollution","Road Tax"],
+  Poclain: ["Insurance","Fitness"],
+  JCB: ["Insurance","Fitness"],
+  Tractor: ["Insurance","Fitness"],
+  Car: ["Insurance","Pollution"],
+  Bike: ["Insurance","Pollution"]
+};
 
-  var KINDS=["Insurance","Fitness","Pollution","Permit","National Permit","Road Tax","RC","Loan Papers","Other"];
-  var REQ={
-    Truck:["Insurance","Fitness","Permit","Pollution","Road Tax"],
-    Poclain:["Insurance","Fitness"],
-    JCB:["Insurance","Fitness"],
-    Tractor:["Insurance","Fitness"],
-    Car:["Insurance","Pollution"],
-    Bike:["Insurance","Pollution"]
-  };
+var state = {
+  tab: "board",
+  filterLevel: null,
+  curVehicleId: null,
+  subTab: "alerts",
+  repType: "e",
+  repOnlyNext: true,
+  searchQ: ""
+};
 
-  var FIRMS=["Firm A","Firm B"], V=[], D=[], E=[], Sv=[];
-  var tab="board", bf=null, cur=null, q="", cf="All", sf="All", cm=0, cd=off(0), rp="e", eo=true, rf="All", vt="alerts";
-  var _rpd=null, RT="";
-
-  function veh(i){
-    for(var j=0;j<V.length;j++){if(V[j].id==i)return V[j];}
-    return {id:i,no:"-",nm:"-",c:"Truck",rd:0,f:""};
-  }
-  function vn(i){return veh(i).no;}
-  function fnd(t,i){
-    var arr=(t=="d"?D:(t=="e"?E:Sv));
-    for(var j=0;j<arr.length;j++){if(arr[j].id==i)return arr[j];}
-    return null;
-  }
-  function missing(v){
-    var req=REQ[v.c]||[];
-    return req.filter(function(k){
-      return !D.some(function(d){return d.vid==v.id&&d.k==k;});
-    });
-  }
-
-  function fmtPlate(n){
-    var s=String(n||"").toUpperCase().replace(/\s|-/g,"");
-    var m=s.match(/^([A-Z]{2})(\d{1,2})([A-Z]{1,3})(\d{4})$/);
-    return m ? (m[1]+" "+m[2]+" "+m[3]+" "+m[4]) : (n||"");
-  }
-
-  var LOCAL_KEY="fleet_data_store_prod";
-  function setSaved(t){
-    var e=$("#sv");if(!e)return;
-    e.textContent=t;e.style.opacity="1";
-    setTimeout(function(){if(e)e.style.opacity="0";},1400);
-  }
-
-  function saveLocal(){
-    try{
-      localStorage.setItem(LOCAL_KEY,JSON.stringify({V:V,D:D,E:E,Sv:Sv,FIRMS:FIRMS,CUST:CUST}));
-      setSaved("Saved ✓");
-    }catch(err){}
-  }
-
-  function loadLocal(){
-    try{
-      var str=localStorage.getItem(LOCAL_KEY);
-      if(str){
-        var o=JSON.parse(str);
-        if(Array.isArray(o.V)) V=o.V;
-        if(Array.isArray(o.D)) D=o.D;
-        if(Array.isArray(o.E)) E=o.E;
-        if(Array.isArray(o.Sv)) Sv=o.Sv;
-        if(Array.isArray(o.FIRMS)&&o.FIRMS.length) FIRMS=o.FIRMS;
-        if(Array.isArray(o.CUST)) CUST=o.CUST;
-      }
-    }catch(err){}
-  }
-
-  function items(){
-    var r=[];
-    D.forEach(function(o){
-      if(!o||!o.ex)return;
-      var k=dd(o.ex);
-      if(k<=30)r.push({t:"d",o:o,lv:k<0?0:k<=7?1:2,x:o.k+(k<0?" expired "+(-k)+" days ago":k==0?" expires today":" expires in "+k+" days"),w:k});
-    });
-    E.forEach(function(o){
-      if(!o||!o.due)return;
-      var k=dd(o.due);
-      if(k<=5)r.push({t:"e",o:o,lv:k<0?0:1,x:"EMI Rs "+o.amt+" ("+o.ln+") "+(k<0?"overdue by "+(-k)+" days":k==0?"due today":"due in "+k+" days"),w:k});
-    });
-    Sv.forEach(function(o){
-      if(!o)return;
-      var v=veh(o.vid),l=(o.last||0)+(o.int||0)-(v.rd||0),th=Math.max(1,(o.int||500)/10);
-      if(l<=th)r.push({t:"s",o:o,lv:l<0?0:1,x:o.lb+" "+(l<0?"overdue by "+(-l):"due in "+l)+" "+unit(v.c),w:l<0?-1:3});
-    });
-    return r.sort(function(a,b){return a.lv-b.lv||a.w-b.w;});
-  }
-
-  function render(){
-    var NI={"board":"<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M9 4V3h6v1M9 10h6M9 14h6M9 18h3\"/>","fleet":"<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/>","cal":"<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>","money":"<path d=\"M3 8a2 2 0 0 1 2-2h13v3\"/><rect x=\"3\" y=\"8\" width=\"18\" height=\"12\" rx=\"2\"/><circle cx=\"16.5\" cy=\"14\" r=\"1.2\"/>","upd":"<path d=\"M4 17a8 8 0 1 1 16 0\"/><path d=\"M12 17l4-5\"/><circle cx=\"12\" cy=\"17\" r=\"1\"/>","imp":"<ellipse cx=\"12\" cy=\"6\" rx=\"7\" ry=\"3\"/><path d=\"M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6\"/>"};
-    var T=[["board","Board"],["fleet","Fleet"],["cal","Calendar"],["money","Money"],["upd","Update"],["imp","Data"]];
-    var nb=items().filter(function(x){return x.lv<=1;}).length;
-    $("#nav").innerHTML=T.map(function(item){
-      var k=item[0],l=item[1];
-      return '<button class="'+(tab==k?"on":"")+'" onclick="window._setTab(\''+k+'\')"><svg viewBox="0 0 24 24">'+NI[k]+'</svg>'+l+(k=="board"&&nb?'<span class="bg">'+(nb>99?"99+":nb)+'</span>':'')+'</button>';
-    }).join("");
-
-    var views={board:vBoard,fleet:vFleet,cal:vCal,money:vMoney,upd:vUpd,imp:vImp,rep:vRep};
-    $("#m").innerHTML=(views[tab]||vBoard)();
-  }
-
-  function hdr(t,s,x){
-    return '<div class="hd"><h1>'+t+'</h1><div class="s">'+s+'</div>'+(x||'')+'</div>';
-  }
-
-  function vBoard(){
-    if(!V.length)return welcome();
-    var a=items(),sh=bf==null?a:a.filter(function(x){return x.lv==bf;});
-    function n(l){return a.filter(function(x){return x.lv==l;}).length;}
-    function sb(l,t){
-      return '<button class="'+(bf===l?"on":"")+'" onclick="window._toggleBf('+l+')"><b>'+n(l)+'</b>'+t+'</button>';
+function initStorage() {
+  try {
+    var raw = localStorage.getItem("fcr_db_v3");
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed.V)) DB.V = parsed.V;
+      if (Array.isArray(parsed.D)) DB.D = parsed.D;
+      if (Array.isArray(parsed.E)) DB.E = parsed.E;
+      if (Array.isArray(parsed.Sv)) DB.Sv = parsed.Sv;
+      if (Array.isArray(parsed.FIRMS) && parsed.FIRMS.length) DB.FIRMS = parsed.FIRMS;
     }
-    var badSet={};a.forEach(function(x){badSet[x.o.vid]=true;});
-    var bad=Object.keys(badSet).length;
-    var miss=V.filter(function(v){return missing(v).length>0;}).length;
+  } catch(e) {}
+}
 
-    return hdr("Today's Board",V.length+" vehicles · "+Math.round((V.length-bad)/V.length*100)+"% fully clear",'<div class="st">'+sb(0,"Late")+sb(1,"This week")+sb(2,"This month")+'</div>')+
-    '<div class="c" style="padding:6px 12px"><input placeholder="🔍 Type plate or vehicle name to search..." oninput="window._bsearch(this.value)" style="border:0;background:transparent;padding:6px"></div><div id="bres"></div>'+
-    '<div class="qk"><button onclick="window._addNow()"><span>➕</span>Add Vehicle</button><button onclick="window._openRep(\'e\')"><span>📄</span>Reports</button><button onclick="window._setTab(\'upd\')"><span>⏱️</span>Readings</button><button onclick="window._setTab(\'imp\')"><span>📥</span>Data</button></div>'+
-    (miss?'<div class="r" style="margin:4px 0"><button class="s" onclick="window._filterMiss()">⚠️ '+miss+' vehicles with missing papers</button></div>':'')+
-    (sh.length?sh.slice(0,25).map(taskCard).join(''):'<div class="c ok">All clear. Everything up to date.</div>');
+function persist() {
+  try {
+    localStorage.setItem("fcr_db_v3", JSON.stringify(DB));
+    flash("Saved ✓");
+  } catch(e) {}
+}
+
+function flash(msg) {
+  var el = document.getElementById("sv");
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = "1";
+  setTimeout(function(){ el.style.opacity = "0"; }, 1400);
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+}
+
+function fmtDate(d) {
+  var m = String(d.getMonth() + 1).padStart(2, "0");
+  var dt = String(d.getDate()).padStart(2, "0");
+  return d.getFullYear() + "-" + m + "-" + dt;
+}
+
+function offsetDate(n) {
+  var d = new Date();
+  d.setDate(d.getDate() + n);
+  return fmtDate(d);
+}
+
+function diffDays(dStr) {
+  var t = new Date(dStr + "T00:00:00").getTime();
+  var now = new Date().setHours(0,0,0,0);
+  return Math.round((t - now) / 864e5);
+}
+
+function addMonth(dStr) {
+  var d = new Date(dStr + "T00:00:00");
+  d.setMonth(d.getMonth() + 1);
+  return fmtDate(d);
+}
+
+function inr(n) {
+  return "₹" + Number(n || 0).toLocaleString("en-IN");
+}
+
+function getUnit(c) {
+  for (var i = 0; i < CATS.length; i++) {
+    if (CATS[i][0] == c) return CATS[i][2];
   }
+  return "km";
+}
 
-  function taskCard(x){
-    var v=veh(x.o.vid);
-    return '<div class="c l'+x.lv+'"><div class="r"><b>'+esc(v.no)+'</b><span class="mu">'+esc(v.nm)+' · '+esc(v.f||"")+'</span><span class="sp"></span><span class="pl p'+x.lv+'">'+(x.lv==0?"LATE":x.lv==1?"THIS WEEK":"THIS MONTH")+'</span></div>'+
-    '<div class="t'+x.lv+'" style="margin:4px 0">'+esc(x.x)+'</div>'+
-    '<div class="r" style="margin-top:8px"><button class="b" onclick="window._done(\''+x.t+'\',\''+x.o.id+'\')">Done / Renewed</button><button class="s" onclick="window._openV(\''+v.id+'\')">Open Vehicle</button></div></div>';
+function getIcon(c) {
+  for (var i = 0; i < CATS.length; i++) {
+    if (CATS[i][0] == c) return CATS[i][1];
   }
+  return "🚘";
+}
 
-  function vFleet(){
-    if(cur)return vDetail(veh(cur));
-    var lv={};
-    items().forEach(function(x){
-      var vid=x.o.vid;
-      lv[vid]=Math.min(lv[vid]===undefined?9:lv[vid],x.lv);
-    });
-    var vs=V.filter(function(v){
-      return (cf=="All"||v.c==cf)&&(ff=="All"||v.f==ff)&&(!q||(v.no+v.nm+(v.f||"")).toLowerCase().indexOf(q.toLowerCase())>=0)&&(sf=="All"||(sf=="Miss"?missing(v).length>0:sf=="Red"?lv[v.id]<=1:lv[v.id]==2));
-    });
-
-    var catChips=['All'].concat(CATS.map(function(c){return c[0];})).map(function(c){
-      return '<button class="'+(cf==c?"on":"")+'" onclick="window._setCf(\''+c+'\')">'+c+'</button>';
-    }).join("");
-
-    var firmChips=['All'].concat(FIRMS).map(function(f){
-      return '<button class="'+(ff==f?"on":"")+'" onclick="window._setFf(\''+esc(f)+'\')">'+esc(f)+'</button>';
-    }).join("");
-
-    var groups=CATS.map(function(catArr){
-      var c=catArr[0];
-      var g=vs.filter(function(v){return v.c==c;});
-      if(!g.length)return "";
-      return '<h3>'+ico(c)+' '+c+' ('+g.length+')</h3><div class="wall">'+g.map(function(v){
-        var cls=lv[v.id]<=1?"r0":lv[v.id]==2?"r1":"";
-        return '<button class="tl '+cls+'" onclick="window._openV(\''+v.id+'\')"><span>'+ico(c)+'</span>'+esc(String(v.no).slice(-6))+'</button>';
-      }).join("")+'</div>';
-    }).join("");
-
-    return hdr("Fleet",vs.length+" of "+V.length+" vehicles",'<div class="r" style="margin-top:10px"><button class="bk" onclick="window._addNow()">+ Add vehicle</button></div>')+
-    '<input placeholder="Search vehicle number, name, firm" value="'+esc(q)+'" oninput="window._setQ(this.value)">'+
-    '<div class="chips">'+catChips+'</div><div class="chips">'+firmChips+'</div>'+
-    groups+addVForm();
+function getVeh(id) {
+  for (var i = 0; i < DB.V.length; i++) {
+    if (DB.V[i].id == id) return DB.V[i];
   }
+  return { id: id, no: "-", nm: "-", c: "Truck", rd: 0, f: "" };
+}
 
-  function vDetail(v){
-    var u=unit(v.c);
-    var ds=D.filter(function(x){return x.vid==v.id;}).sort(function(a,b){return (a.ex||"9")<(b.ex||"9")?-1:1;});
-    var ms=missing(v);
-    var al=items().filter(function(x){return x.o.vid==v.id;});
-    var TB=[["alerts","Alerts"+(al.length?" ("+al.length+")":"")],["rc","RC & Category"],["papers","Papers"],["emi","EMI"],["svc","Service"]];
-
-    var body="";
-    if(vt=="alerts"){
-      body=(ms.length?'<div class="c l1"><b class="t1">Missing papers:</b> '+esc(ms.join(", "))+'<div style="margin-top:6px"><button class="s" onclick="window._setVt(\'papers\')">Add paper</button></div></div>':'')+
-      (al.length?al.map(taskCard).join(''):'<div class="c ok">✓ All clear for this vehicle.</div>');
-    }else if(vt=="rc"){
-      body=rcHtml(v);
-    }else if(vt=="papers"){
-      body=ds.map(function(x){
-        var k=x.ex?dd(x.ex):null;
-        return '<div class="c"><div class="r"><div><b>'+esc(x.k)+'</b><div class="mu">'+(x.ex?"Expiry "+x.ex:"No expiry")+'</div></div><span class="sp"></span><span class="'+(k==null?"mu":k<=7?"t0":k<=30?"t1":"ok")+'">'+(k==null?"":k<0?"Expired "+(-k)+"d":k+" days left")+'</span></div>'+
-        '<div class="r" style="margin-top:8px"><button class="s" onclick="window._done(\'d\',\''+x.id+'\')">Renewed</button><button class="nd" onclick="window._delD(\''+x.id+'\')">Delete</button></div></div>';
-      }).join("")+
-      '<div class="c"><b>+ Add paper</b><div class="g2"><select id="dk">'+KINDS.map(function(k){return '<option>'+esc(k)+'</option>';}).join("")+'</select><input id="dx" type="date"></div><button class="b" style="margin-top:6px" onclick="window._addD(\''+v.id+'\')">Add paper</button></div>';
-    }else if(vt=="emi"){
-      var el=E.filter(function(x){return x.vid==v.id;});
-      body=(el.map(function(x){
-        var k=dd(x.due);
-        return '<div class="c"><div class="r"><div><b>'+esc(x.ln)+'</b><div class="mu">Rs '+x.amt+' · Bank/Payer: '+esc(x.bk)+' · Next '+x.due+'</div></div><span class="sp"></span><span class="'+(k<0?"t0":k<=7?"t1":"ok")+'">'+(k<0?"Overdue "+(-k)+"d":"in "+k+" days")+'</span></div>'+
-        '<div class="r" style="margin-top:8px"><button class="s" onclick="window._done(\'e\',\''+x.id+'\')">Mark Paid</button></div></div>';
-      }).join("")||'<div class="c mu">No loan registered.</div>')+
-      '<div class="c"><b>+ Add loan</b><div class="g2"><input id="ef" placeholder="Financer (e.g. HDFC)"><input id="eb" placeholder="Debited Bank (e.g. Jay Axis Bank)"><input id="ea" type="number" placeholder="Monthly EMI Rs"><input id="ed" type="date" placeholder="Next due date"></div><button class="b" style="margin-top:6px" onclick="window._addE(\''+v.id+'\')">Save loan</button></div>';
-    }else if(vt=="svc"){
-      var sv=Sv.filter(function(x){return x.vid==v.id;});
-      body=(sv.map(function(x){
-        var nx=(x.last||0)+(x.int||0),l=nx-(v.rd||0);
-        return '<div class="c"><div class="r"><div><b>'+esc(x.lb)+'</b><div class="mu">Next at '+nx+' '+u+' (Current: '+(v.rd||0)+')</div></div><span class="sp"></span><span class="'+(l<0?"t0":l<=x.int/10?"t1":"ok")+'">'+(l<0?"Overdue "+(-l):l+" left")+' '+u+'</span></div><div class="r" style="margin-top:8px"><button class="s" onclick="window._done(\'s\',\''+x.id+'\')">Service Done</button></div></div>';
-      }).join("")||'<div class="c mu">No service schedule set.</div>')+
-      '<div class="c"><b>+ Add service schedule</b><div class="g2"><input id="sl" placeholder="Service name (e.g. Engine Oil)"><input id="sa" type="number" placeholder="Last done at ('+u+')"><input id="si" type="number" placeholder="Repeat every ('+u+')"></div><button class="b" style="margin-top:6px" onclick="window._addS(\''+v.id+'\')">Add service</button></div>';
-    }
-
-    var tabChips=TB.map(function(item){
-      return '<button class="'+(vt==item[0]?"on":"")+'" onclick="window._setVt(\''+item[0]+'\')">'+item[1]+'</button>';
-    }).join("");
-
-    return '<div class="vh"><div class="r"><button class="bk" onclick="window._backFleet()">‹ Back</button><span class="sp"></span>'+(v.f?'<span class="pill">'+esc(v.f)+'</span>':'')+'</div>'+
-    '<div class="ic">'+ico(v.c)+'</div>'+
-    '<span class="plate '+(v.c=="Truck"?"yl":"")+'"><i>IND</i><b>'+esc(fmtPlate(v.no))+'</b></span>'+
-    '<div class="nm">'+esc(v.nm)+' · '+esc(v.c)+' · '+esc(v.f||"No firm")+'</div>'+
-    '<div class="r" style="justify-content:center;margin-top:8px"><label class="mu" style="color:#fff">Reading ('+u+'):</label><input style="width:120px;padding:4px 8px;margin:0 6px" type="number" value="'+(v.rd||0)+'" onchange="window._setReading(\''+v.id+'\',this.value)"></div></div>'+
-    '<div class="chips">'+tabChips+'</div>'+body;
-  }
-
-  function rcHtml(v){
-    var rc=v.rc||{};
-    var catOpts=CATS.map(function(c){
-      return '<option value="'+c[0]+'" '+(v.c==c[0]?"selected":"")+'>'+c[1]+' '+c[0]+'</option>';
-    }).join("");
-    var firmOpts='<option value="">(No Firm)</option>'+FIRMS.map(function(f){
-      return '<option value="'+esc(f)+'" '+(v.f==f?"selected":"")+'>'+esc(f)+'</option>';
-    }).join("")+'<option value="__new">+ Add New Firm...</option>';
-
-    return '<div class="c"><b>Change Category & Firm</b><div class="mu">Shift vehicle to another company or change type anytime.</div>'+
-    '<label class="mu">Category</label><select id="edit_vc">'+catOpts+'</select>'+
-    '<label class="mu">Firm / Company</label><select id="edit_vf" onchange="window._toggleNewFirm(this.value)">'+firmOpts+'</select>'+
-    '<div id="edit_vfn_box" style="display:none"><input id="edit_vf_new" placeholder="Type new firm name"></div>'+
-    '<label class="mu">Nickname / Identifier</label><input id="edit_vnm" value="'+esc(v.nm)+'">'+
-    '<button class="b" style="width:100%;margin-top:10px" onclick="window._saveVehEdit(\''+v.id+'\')">Update Vehicle Details</button></div>'+
-    '<div class="c"><b>RC Information</b>'+
-    '<label class="mu">Owner Name</label><input id="rc_own" value="'+esc(rc.owner||"")+'">'+
-    '<label class="mu">Fuel Type</label><input id="rc_fl" value="'+esc(rc.fuel||"Diesel")+'">'+
-    '<label class="mu">Chassis No.</label><input id="rc_ch" value="'+esc(rc.chassis||"")+'">'+
-    '<label class="mu">Engine No.</label><input id="rc_en" value="'+esc(rc.engine||"")+'">'+
-    '<button class="b" style="width:100%;margin-top:8px" onclick="window._saveRcSpecs(\''+v.id+'\')">Save RC Details</button></div>'+
-    '<button class="nd" style="width:100%" onclick="window._delV(\''+v.id+'\')">Delete this vehicle</button>';
-  }
-
-  function vCal(){
-    var b=new Date();b.setDate(1);b.setMonth(b.getMonth()+cm);
-    var y=b.getFullYear(),m=b.getMonth(),dim=new Date(y,m+1,0).getDate(),st=(b.getDay()+6)%7;
-    function ev(d){
-      var r=[];
-      D.filter(function(x){return x.ex==d;}).forEach(function(x){r.push({v:x.vid,t:x.k+" expires"});});
-      E.filter(function(x){return x.due==d;}).forEach(function(x){r.push({v:x.vid,t:"EMI Rs "+x.amt+" ("+x.ln+")"});});
-      return r;
-    }
-    var t0=off(0);
-    var cells="";for(var i=0;i<st;i++)cells+="<span></span>";
-    for(var d=1;d<=dim;d++){
-      var iso=y+"-"+p2(m+1)+"-"+p2(d),cnt=ev(iso).length;
-      cells+='<button class="'+(cd==iso?"sel":"")+(iso==t0?" td":"")+'" onclick="window._setCd(\''+iso+'\')">'+d+(cnt?'<i>'+cnt+'</i>':'')+'</button>';
-    }
-    var l=ev(cd);
-    return hdr("Calendar","Schedule of papers & EMIs")+
-    '<div class="r" style="margin-bottom:6px"><button class="s" onclick="window._moveMonth(-1)">‹</button><b class="sp" style="text-align:center">'+b.toLocaleString("en",{month:"long"})+' '+y+'</b><button class="s" onclick="window._moveMonth(1)">›</button></div>'+
-    '<div class="cal">'+["M","T","W","T","F","S","S"].map(function(x){return '<span class="mu">'+x+'</span>';}).join("")+cells+'</div>'+
-    '<div class="c" style="margin-top:10px"><b>Events on '+cd+'</b>'+(l.map(function(e){
-      return '<div class="r" style="margin-top:6px"><b>'+esc(vn(e.v))+'</b><span class="mu sp">'+esc(veh(e.v).nm)+'</span><span>'+esc(e.t)+'</span></div>';
-    }).join("")||'<div class="mu" style="margin-top:4px">Nothing due on this date.</div>')+'</div>';
-  }
-
-  function vMoney(){
-    var l=E.filter(function(x){return dd(x.due)<=30;}).sort(function(a,b){return a.due<b.due?-1:1;});
-    var tot=l.reduce(function(t,x){return t+(+x.amt||0);},0);
-    return hdr("Money & EMIs","Next 30 days outlays: "+inr(tot))+
-    '<div class="r" style="margin:8px 0"><button class="s" onclick="window._openRep(\'e\')">📄 Open EMI Report</button></div>'+
-    '<div class="c"><b>Next 30 Days Due</b>'+
-    (l.map(function(x){
-      return '<div class="r" style="padding:6px 0;border-top:1px solid var(--bd)"><div><b>'+esc(vn(x.vid))+'</b><div class="mu">Financer: '+esc(x.ln)+' · Debited: '+esc(x.bk)+'</div></div><span class="sp"></span><div><b>'+inr(x.amt)+'</b><div class="mu">'+x.due+'</div></div><button class="b" style="margin-left:6px" onclick="window._done(\'e\',\''+x.id+'\')">Paid</button></div>';
-    }).join("")||'<div class="mu">No EMI due in 30 days.</div>')+
-    '</div>';
-  }
-
-  function vUpd(){
-    function g(t,filterFn){
-      var vList=V.filter(filterFn);
-      return '<h3>'+t+'</h3><div class="c">'+vList.map(function(v){
-        return '<div class="r" style="padding:4px 0"><span style="width:110px"><b>'+esc(v.no)+'</b></span><span class="mu sp">'+esc(v.nm)+'</span><input style="width:110px" type="number" value="'+(v.rd||0)+'" onchange="window._setReading(\''+v.id+'\',this.value)"></div>';
-      }).join("")+'</div>';
-    }
-    return hdr("Quick Reading Update","Input latest km or hour meter reading")+
-    g("Hour Machines (Poclain, JCB, Tractor)",function(v){return unit(v.c)=="hrs";})+
-    g("Kilometer Vehicles (Truck, Car, Bike)",function(v){return unit(v.c)=="km";});
-  }
-
-  function vImp(){
-    return hdr("Data & Backup","Local save, JSON backup and restore")+
-    '<div class="c"><b>Local Storage & Backup</b>'+
-    '<div class="mu">Your data auto-saves in this browser. Download a backup file anytime to keep it safe or move it to another phone.</div>'+
-    '<div class="r" style="margin-top:10px">'+
-      '<button class="b" onclick="window._saveB()">Download Backup (JSON)</button>'+
-      '<label class="s" style="cursor:pointer">Restore Backup<input type="file" accept=".json" style="display:none" onchange="window._rdB(this.files[0])"></label>'+
-    '</div></div>'+
-    '<div class="c"><b>Manage Registered Firms</b>'+
-    FIRMS.map(function(f,i){
-      return '<div class="r" style="padding:4px 0"><span class="sp">'+esc(f)+'</span><button class="nd" onclick="window._rmFirm('+i+')">✕</button></div>';
-    }).join("")+
-    '<div class="r" style="margin-top:6px"><input id="nf" placeholder="New firm name" style="flex:1"><button class="b" onclick="window._addFirm()">Add Firm</button></div>'+
-    '</div>';
-  }
-
-  function buildRP(){
-    var fl=rf=="All"?"All firms":rf,t0=off(0);
-    function fm(x){return rf=="All"||veh(x.vid).f==rf;}
-    var o={fl:fl,t0:t0,groups:[],cols:[],al:[],title:"",sub:"",foot:""};
-    var T="";
-
-    if(rp=="e"){
-      var l=E.filter(function(x){return dd(x.due)<=30&&fm(x);}).sort(function(a,b){return a.due<b.due?-1:1;});
-      if(eo&&l.length){var fst=l[0].due;l=l.filter(function(x){return x.due==fst;});}
-      o.title="EMI Report";
-      o.sub=eo?"Next EMI date outlays":"All EMIs due next 30 days";
-      o.cols=["#","Vehicle","Financer","Debited From / Bank","Amount"];
-      o.al=["c","l","l","l","r"];
-      var dateMap={};l.forEach(function(x){dateMap[x.due]=true;});
-      var dates=Object.keys(dateMap);
-      dates.forEach(function(d){
-        var g=l.filter(function(x){return x.due==d;});
-        var sm=g.reduce(function(t,x){return t+(+x.amt||0);},0);
-        o.groups.push({
-          h:"Date: "+d+"   |   "+g.length+" EMIs   |   Rs "+sm.toLocaleString("en-IN"),
-          rows:g.map(function(x,i){return {c:[i+1,vn(x.vid),x.ln,x.bk&&x.bk!="-"?x.bk:"-",inr(x.amt)]};})
-        });
-        T+="\n*EMI Date: "+d+"* ("+inr(sm)+")\n"+g.map(function(x,i){
-          return (i+1)+". *"+vn(x.vid)+"* | Financer: *"+x.ln+"* | Bank: *"+x.bk+"* | "+inr(x.amt);
-        }).join("\n")+"\n";
+function getAlerts() {
+  var list = [];
+  DB.D.forEach(function(d) {
+    if (!d.ex) return;
+    var k = diffDays(d.ex);
+    if (k <= 30) {
+      list.push({
+        type: "d", id: d.id, vid: d.vid, k: d.k, ex: d.ex,
+        lv: k < 0 ? 0 : (k <= 7 ? 1 : 2),
+        msg: d.k + (k < 0 ? " expired " + (-k) + " days ago" : (k == 0 ? " expires today" : " expires in " + k + " days"))
       });
-      var tot=l.reduce(function(t,x){return t+(+x.amt||0);},0);
-      o.foot="Total: "+l.length+" EMIs | Total: Rs "+tot.toLocaleString("en-IN");
-      T+="\n*Total: "+l.length+" EMIs · "+inr(tot)+"*";
-    }else{
-      var pl=D.filter(function(x){return x.ex&&dd(x.ex)<=30&&fm(x);}).sort(function(a,b){return a.ex<b.ex?-1:1;});
-      o.title="Papers Expiry Report";
-      o.sub="Papers expired or expiring in 30 days";
-      o.cols=["#","Vehicle","Paper","Expiry Date"];
-      o.al=["c","l","l","l"];
-      o.groups.push({
-        h:"",
-        rows:pl.map(function(x,i){return {c:[i+1,vn(x.vid),x.k,x.ex],red:dd(x.ex)<0};})
+    }
+  });
+
+  DB.E.forEach(function(e) {
+    if (!e.due) return;
+    var k = diffDays(e.due);
+    if (k <= 5) {
+      list.push({
+        type: "e", id: e.id, vid: e.vid, ln: e.ln, amt: e.amt, due: e.due, bk: e.bk,
+        lv: k < 0 ? 0 : 1,
+        msg: "EMI Rs " + e.amt + " (" + e.ln + ") " + (k < 0 ? "overdue by " + (-k) + " days" : (k == 0 ? "due today" : "due in " + k + " days"))
       });
-      o.foot="Total: "+pl.length+" papers";
-      T=pl.map(function(x,i){
-        return (i+1)+". *"+vn(x.vid)+"* — "+x.k+" — "+x.ex+(dd(x.ex)<0?" (EXPIRED)":"");
-      }).join("\n");
     }
-    RT="*"+o.title.toUpperCase()+"* ("+fl+")\nAs on "+t0+"\n"+T;
-    _rpd=o;
-  }
+  });
 
-  function vRep(){
-    buildRP();
-    return hdr("Reports","Export report image or share")+
-    '<div class="chips"><button class="'+(rp=="e"?"on":"")+'" onclick="window._setRp(\'e\')">EMI Report</button><button class="'+(rp=="p"?"on":"")+'" onclick="window._setRp(\'p\')">Papers (30 days)</button></div>'+
-    '<div class="chips">'+['All'].concat(FIRMS).map(function(f){
-      return '<button class="'+(rf==f?"on":"")+'" onclick="window._setRf(\''+esc(f)+'\')">'+esc(f)+'</button>';
-    }).join("")+'</div>'+
-    (rp=="e"?'<div class="chips"><button class="'+(eo?"on":"")+'" onclick="window._setEo(true)">Only Next Date</button><button class="'+(!eo?"on":"")+'" onclick="window._setEo(false)">All Dates (30 Days)</button></div>':'')+
-    '<div class="c"><pre style="white-space:pre-wrap;font-size:12px;margin:0;background:var(--bg);padding:10px;border-radius:8px">'+esc(RT)+'</pre></div>'+
-    '<div class="r" style="margin-top:10px">'+
-      '<a class="b" target="_blank" href="https://wa.me/?text='+encodeURIComponent(RT)+'">Send on WhatsApp</a>'+
-      '<button class="s" onclick="window._repImg()">Generate Report Image (PNG)</button>'+
-    '</div>';
-  }
-
-  function repImg(){
-    var R=_rpd;if(!R)return;
-    var W=760,P=24,RH=32,sc=2;
-    var wt=R.cols.map(function(c,i){return i==0?0.5:/Vehicle/.test(c)?1.6:/Financer/.test(c)?1.8:/Bank|Debited/i.test(c)?2.2:1.4;});
-    var sm=wt.reduce(function(a,b){return a+b;},0),cw=wt.map(function(w){return (W-2*P)*w/sm;});
-    var rows=0;R.groups.forEach(function(g){if(g.h)rows++;rows+=g.rows.length;});
-    var H=130+(rows+1)*RH+70;
-
-    var canvas=document.createElement("canvas");canvas.width=W*sc;canvas.height=H*sc;
-    var x=canvas.getContext("2d");x.scale(sc,sc);
-    x.fillStyle="#ffffff";x.fillRect(0,0,W,H);
-    x.fillStyle="#0b6e4f";x.fillRect(0,0,W,80);
-    x.fillStyle="#ffffff";x.font="bold 24px sans-serif";x.fillText(R.title,P,36);
-    x.font="13px sans-serif";x.fillText(R.fl+" · As on "+R.t0,P,60);
-
-    function fit(t,m){
-      t=String(t);if(x.measureText(t).width<=m)return t;
-      while(t.length>1&&x.measureText(t+"…").width>m)t=t.slice(0,-1);
-      return t+"…";
-    }
-
-    var y=95;
-    function rowAt(ry,cells,o){
-      if(o.bg){x.fillStyle=o.bg;x.fillRect(P,ry,W-2*P,RH);}
-      x.strokeStyle="#e2e8f0";x.strokeRect(P,ry,W-2*P,RH);
-      x.fillStyle=o.col||"#111";x.font=(o.b?"bold ":"")+"13px sans-serif";
-      var cx=P;
-      cells.forEach(function(t,i){
-        var m=cw[i]-12;
-        if(R.al[i]=="r"){x.textAlign="right";x.fillText(fit(t,m),cx+cw[i]-6,ry+21);}
-        else if(R.al[i]=="c"){x.textAlign="center";x.fillText(fit(t,m),cx+cw[i]/2,ry+21);}
-        else{x.textAlign="left";x.fillText(fit(t,m),cx+6,ry+21);}
-        cx+=cw[i];
+  DB.Sv.forEach(function(s) {
+    var v = getVeh(s.vid);
+    var u = getUnit(v.c);
+    var nextAt = (s.last || 0) + (s.int || 0);
+    var left = nextAt - (v.rd || 0);
+    var th = Math.max(1, (s.int || 500) / 10);
+    if (left <= th) {
+      list.push({
+        type: "s", id: s.id, vid: s.vid, lb: s.lb, left: left, u: u,
+        lv: left < 0 ? 0 : 1,
+        msg: s.lb + (left < 0 ? " overdue by " + (-left) : " due in " + left) + " " + u
       });
-      x.textAlign="left";
     }
+  });
 
-    rowAt(y,R.cols,{bg:"#24303e",col:"#ffffff",b:1});y+=RH;
-    R.groups.forEach(function(g){
-      if(g.h){
-        x.fillStyle="#e6f4ea";x.fillRect(P,y,W-2*P,RH);
-        x.strokeStyle="#e2e8f0";x.strokeRect(P,y,W-2*P,RH);
-        x.fillStyle="#0b6e4f";x.font="bold 13px sans-serif";
-        x.fillText(g.h,P+8,y+21);
-        y+=RH;
-      }
-      g.rows.forEach(function(r,idx){
-        rowAt(y,r.c,{bg:idx%2?"#f8fafc":"#ffffff",col:r.red?"#dc2626":"#111111"});
-        y+=RH;
-      });
-    });
+  return list.sort(function(a, b){ return a.lv - b.lv; });
+}
 
-    x.fillStyle="#111111";x.font="bold 13px sans-serif";x.fillText(R.foot,P,y+32);
+function renderNav() {
+  var icons = {
+    board: '<rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/>',
+    fleet: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    money: '<path d="M3 8a2 2 0 0 1 2-2h14v4H3z"/><rect x="3" y="8" width="18" height="12" rx="2"/>',
+    upd: '<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/>',
+    rep: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+    data: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>'
+  };
 
-    var imgUrl=canvas.toDataURL("image/png");
-    modal('<b>'+esc(R.title)+'</b><p class="mu">Tap Download Image to save directly into phone gallery.</p>'+
-    '<img src="'+imgUrl+'" style="width:100%;border:1px solid var(--bd);border-radius:8px">'+
-    '<div class="r" style="margin-top:10px">'+
-      '<a class="b" download="'+R.title.replace(/\s+/g,"_")+'_'+off(0)+'.png" href="'+imgUrl+'">Download Image (PNG)</a>'+
-      '<button class="s" onclick="window._closeM()">Close</button>'+
-    '</div>');
+  var tabs = [
+    ["board","Board"],
+    ["fleet","Fleet"],
+    ["money","Money"],
+    ["upd","Readings"],
+    ["rep","Reports"],
+    ["data","Data"]
+  ];
+
+  var html = "";
+  for (var i = 0; i < tabs.length; i++) {
+    var k = tabs[i][0];
+    var l = tabs[i][1];
+    var on = (state.tab == k && !state.curVehicleId) ? "on" : "";
+    html += '<button class="' + on + '" onclick="setTab(\'' + k + '\')"><svg viewBox="0 0 24 24">' + icons[k] + '</svg>' + l + '</button>';
   }
+  document.getElementById("nav").innerHTML = html;
+}
 
-  function addVForm(){
-    return '<div class="c" style="margin-top:14px"><b>+ Register New Vehicle</b>'+
-    '<div class="g2">'+
-      '<input id="vno" placeholder="Vehicle No (e.g. BR01GA1234)">'+
-      '<input id="vnm" placeholder="Vehicle Name / Nickname">'+
-      '<select id="vc">'+CATS.map(function(c){return '<option value="'+c[0]+'">'+c[1]+' '+c[0]+'</option>';}).join("")+'</select>'+
-      '<select id="vf"><option value="">(No Firm)</option>'+FIRMS.map(function(f){return '<option>'+esc(f)+'</option>';}).join("")+'</select>'+
-      '<input id="vrd" type="number" placeholder="Initial Reading">'+
-    '</div>'+
-    '<button class="b" style="margin-top:8px;width:100%" onclick="window._saveVNew()">Save Vehicle</button>'+
-    '</div>';
-  }
-
-  function welcome(){
-    return hdr("Welcome to Fleet Control Room","Manage vehicles, machinery, papers and loans")+
-    '<div class="c"><b>Get Started</b><p class="mu">No vehicles registered yet. Add your first vehicle below to begin tracking.</p>'+addVForm()+'</div>';
-  }
-
-  function modal(h){$("#mb").innerHTML=h;$("#md").style.display="flex";}
-  function closeM(){$("#md").style.display="none";}
-
-  // Global window dispatcher to ensure inline onclicks never fail
-  window._setTab=function(t){tab=t;cur=null;render();window.scrollTo(0,0);};
-  window._toggleBf=function(l){bf=(bf===l?null:l);render();};
-  window._openRep=function(r){tab="rep";rp=r;render();};
-  window._addNow=function(){tab="fleet";cur=null;render();setTimeout(function(){var e=$("#vno");if(e){e.scrollIntoView({behavior:"smooth",block:"center"});e.focus();}},60);};
-  window._openV=function(id){cur=id;vt="alerts";render();window.scrollTo(0,0);};
-  window._backFleet=function(){cur=null;render();};
-  window._setVt=function(v){vt=v;render();};
-  window._setCf=function(c){cf=c;render();};
-  window._setFf=function(f){ff=f;render();};
-  window._setQ=function(val){q=val;render();};
-  window._filterMiss=function(){tab="fleet";sf="Miss";render();};
-  window._setCd=function(d){cd=d;render();};
-  window._moveMonth=function(dir){cm+=dir;render();};
-  window._setRp=function(p){rp=p;render();};
-  window._setRf=function(f){rf=f;render();};
-  window._setEo=function(b){eo=b;render();};
-  window._repImg=repImg;
-  window._closeM=closeM;
-
-  window._bsearch=function(query){
-    var el=$("#bres");if(!query||!query.trim()){el.innerHTML="";return;}
-    var qk=query.replace(/\s/g,"").toLowerCase();
-    var r=V.filter(function(v){
-      return (v.no||"").toLowerCase().indexOf(qk)>=0||(v.nm||"").toLowerCase().indexOf(qk)>=0||(v.f||"").toLowerCase().indexOf(qk)>=0;
-    }).slice(0,6);
-    el.innerHTML=r.length?r.map(function(v){
-      return '<div class="c" style="margin:4px 0;cursor:pointer;padding:8px 12px" onclick="window._openV(\''+v.id+'\')"><div class="r"><span class="plate sm '+(v.c=="Truck"?"yl":"")+'"><i>IND</i><b>'+esc(fmtPlate(v.no))+'</b></span><span class="mu sp">'+esc(v.nm)+' · '+esc(v.c)+' · '+esc(v.f||"")+'</span><span>›</span></div></div>';
-    }).join(""):'<div class="mu" style="padding:6px 0">No matching vehicle found.</div>';
-  };
-
-  window._setReading=function(id,val){
-    veh(id).rd=+val||0;saveLocal();
-  };
-
-  window._toggleNewFirm=function(val){
-    $("#edit_vfn_box").style.display=(val=="__new"?"block":"none");
-  };
-
-  window._saveVehEdit=function(id){
-    var v=veh(id);
-    v.c=$("#edit_vc").value;
-    var nf=$("#edit_vf").value;
-    if(nf=="__new"){
-      var t=$("#edit_vf_new").value.trim();
-      if(t){if(FIRMS.indexOf(t)<0)FIRMS.push(t);nf=t;}else nf="";
-    }
-    v.f=nf;
-    v.nm=$("#edit_vnm").value.trim()||v.no;
-    saveLocal();render();setSaved("Vehicle updated ✓");
-  };
-
-  window._saveRcSpecs=function(id){
-    var v=veh(id);
-    v.rc=v.rc||{};
-    v.rc.owner=$("#rc_own").value.trim();
-    v.rc.fuel=$("#rc_fl").value.trim();
-    v.rc.chassis=$("#rc_ch").value.trim();
-    v.rc.engine=$("#rc_en").value.trim();
-    saveLocal();setSaved("RC specs saved ✓");
-  };
-
-  window._saveVNew=function(){
-    var no=$("#vno").value.trim().toUpperCase();if(!no){alert("Please enter vehicle number");return;}
-    if(V.some(function(v){return v.no==no;})){alert("Vehicle number already exists");return;}
-    V.push({id:"v"+uid(),no:no,nm:$("#vnm").value.trim()||no,c:$("#vc").value,f:$("#vf").value,rd:+$("#vrd").value||0});
-    saveLocal();render();
-  };
-
-  window._delV=function(id){
-    if(confirm("Delete this vehicle and its records?")){
-      V=V.filter(function(x){return x.id!=id;});
-      D=D.filter(function(x){return x.vid!=id;});
-      E=E.filter(function(x){return x.vid!=id;});
-      Sv=Sv.filter(function(x){return x.vid!=id;});
-      cur=null;saveLocal();render();
-    }
-  };
-
-  window._addD=function(id){
-    D.push({id:"d"+uid(),vid:id,k:$("#dk").value,ex:$("#dx").value});
-    saveLocal();render();
-  };
-  window._delD=function(id){
-    D=D.filter(function(x){return x.id!=id;});saveLocal();render();
-  };
-  window._addE=function(id){
-    E.push({id:"e"+uid(),vid:id,ln:$("#ef").value.trim()||"Loan",bk:$("#eb").value.trim()||"-",amt:+$("#ea").value||0,due:$("#ed").value||off(30),left:12,tot:12});
-    saveLocal();render();
-  };
-  window._addS=function(id){
-    Sv.push({id:"s"+uid(),vid:id,lb:$("#sl").value.trim()||"Service",last:+$("#sa").value||0,int:+$("#si").value||500});
-    saveLocal();render();
-  };
-
-  window._done=function(t,i){
-    var o=fnd(t,i);
-    if(t=="d"){
-      var nx=new Date();nx.setFullYear(nx.getFullYear()+1);
-      modal('<b>Renew Paper: '+esc(o.k)+'</b><p class="mu">New expiry date:</p><input type="date" id="rnw_d" value="'+fmt(nx)+'">'+
-      '<div class="r" style="margin-top:10px"><button class="b" onclick="window._saveRnw(\''+i+'\')">Update Expiry</button><button class="s" onclick="window._closeM()">Cancel</button></div>');
-    }else if(t=="e"){
-      o.due=addM(o.due);o.left=Math.max(0,(o.left||1)-1);saveLocal();render();
-    }else if(t=="s"){
-      var v=veh(o.vid);o.last=v.rd;saveLocal();render();
-    }
-  };
-
-  window._saveRnw=function(id){
-    fnd('d',id).ex=$("#rnw_d").value;
-    saveLocal();closeM();render();
-  };
-
-  window._saveB=function(){
-    var str="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify({V:V,D:D,E:E,Sv:Sv,FIRMS:FIRMS,CUST:CUST,at:off(0)}));
-    var a=document.createElement("a");a.href=str;a.download="Fleet_Backup_"+off(0)+".json";
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-  };
-
-  window._rdB=function(f){
-    if(!f)return;var r=new FileReader();
-    r.onload=function(){
-      try{
-        var b=JSON.parse(r.result);
-        if(Array.isArray(b.V))V=b.V;if(Array.isArray(b.D))D=b.D;if(Array.isArray(b.E))E=b.E;if(Array.isArray(b.Sv))Sv=b.Sv;
-        if(Array.isArray(b.FIRMS))FIRMS=b.FIRMS;if(Array.isArray(b.CUST))CUST=b.CUST;
-        saveLocal();render();alert("Backup restored successfully!");
-      }catch(e){alert("Invalid backup file");}
-    };
-    r.readAsText(f);
-  };
-
-  window._rmFirm=function(idx){
-    FIRMS.splice(idx,1);saveLocal();render();
-  };
-  window._addFirm=function(){
-    var n=$("#nf").value.trim();if(n){FIRMS.push(n);saveLocal();render();}
-  };
-
-  // Safe startup sequence
-  loadLocal();
+function setTab(t) {
+  state.tab = t;
+  state.curVehicleId = null;
   render();
-})();
+  window.scrollTo(0,0);
+}
+
+function openVehicle(id) {
+  state.curVehicleId = id;
+  state.subTab = "alerts";
+  render();
+  window.scrollTo(0,0);
+}
+
+function showModal(html) {
+  document.getElementById("mb").innerHTML = html;
+  document.getElementById("md").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("md").style.display = "none";
+}
+
+function viewBoard() {
+  var alerts = getAlerts();
+  var shown = alerts;
+  if (state.filterLevel !== null) {
+    shown = alerts.filter(function(a){ return a.lv === state.filterLevel; });
+  }
+
+  function countLv(lv) {
+    return alerts.filter(function(a){ return a.lv === lv; }).length;
+  }
+
+  var c0 = countLv(0), c1 = countLv(1), c2 = countLv(2);
+
+  var html = '<div class="hd"><h1>Today\'s Control Board</h1><div class="s">' + DB.V.length + ' vehicles registered</div>' +
+  '<div class="st">' +
+    '<button class="' + (state.filterLevel===0?"on":"") + '" onclick="toggleFilter(0)"><b>' + c0 + '</b>Late</button>' +
+    '<button class="' + (state.filterLevel===1?"on":"") + '" onclick="toggleFilter(1)"><b>' + c1 + '</b>This Week</button>' +
+    '<button class="' + (state.filterLevel===2?"on":"") + '" onclick="toggleFilter(2)"><b>' + c2 + '</b>This Month</button>' +
+  '</div></div>';
+
+  html += '<div class="c" style="padding:6px 12px"><input placeholder="🔍 Type plate or name to search..." oninput="handleSearch(this.value)" style="border:0;background:transparent;padding:6px"></div><div id="searchRes"></div>';
+
+  if (!DB.V.length) {
+    html += '<div class="c"><b>Welcome!</b><div class="mu" style="margin-top:4px">No vehicles registered yet. Add your first vehicle below to start tracking.</div>' + renderAddVehicleForm() + '</div>';
+    return html;
+  }
+
+  if (!shown.length) {
+    html += '<div class="c" style="color:var(--gn);font-weight:600">✓ All clear! Everything is up to date.</div>';
+  } else {
+    for (var i = 0; i < shown.length; i++) {
+      var a = shown[i];
+      var v = getVeh(a.vid);
+      var tag = a.lv === 0 ? "LATE" : (a.lv === 1 ? "THIS WEEK" : "UPCOMING");
+      html += '<div class="c l' + a.lv + '">' +
+        '<div class="r"><b>' + esc(v.no) + '</b><span class="mu">' + esc(v.nm) + ' · ' + esc(v.f||"") + '</span><span class="sp"></span><span class="t' + a.lv + '" style="font-size:11px">' + tag + '</span></div>' +
+        '<div class="t' + a.lv + '" style="margin:4px 0">' + esc(a.msg) + '</div>' +
+        '<div class="r" style="margin-top:8px"><button class="b" onclick="resolveItem(\'' + a.type + '\',\'' + a.id + '\')">Resolve / Renew</button><button class="s" onclick="openVehicle(\'' + v.id + '\')">Open Details</button></div>' +
+      '</div>';
+    }
+  }
+
+  return html;
+}
+
+function toggleFilter(lv) {
+  state.filterLevel = (state.filterLevel === lv) ? null : lv;
+  render();
+}
+
+function handleSearch(q) {
+  var el = document.getElementById("searchRes");
+  if (!el) return;
+  q = (q || "").trim().toLowerCase();
+  if (!q) { el.innerHTML = ""; return; }
+
+  var hits = DB.V.filter(function(v){
+    return (v.no||"").toLowerCase().indexOf(q) >= 0 || (v.nm||"").toLowerCase().indexOf(q) >= 0 || (v.f||"").toLowerCase().indexOf(q) >= 0;
+  }).slice(0, 5);
+
+  if (!hits.length) {
+    el.innerHTML = '<div class="mu" style="padding:6px">No vehicle found.</div>';
+    return;
+  }
+
+  var out = "";
+  for (var i = 0; i < hits.length; i++) {
+    var v = hits[i];
+    out += '<div class="c" style="margin:4px 0;cursor:pointer" onclick="openVehicle(\'' + v.id + '\')">' +
+      '<div class="r"><span class="plate ' + (v.c=="Truck"?"yl":"") + '"><i>IND</i><b>' + esc(v.no) + '</b></span><span class="mu sp">' + esc(v.nm) + ' · ' + esc(v.c) + ' · ' + esc(v.f||"") + '</span><span>›</span></div>' +
+    '</div>';
+  }
+  el.innerHTML = out;
+}
+
+function viewFleet() {
+  if (state.curVehicleId) {
+    return viewVehicleDetails(getVeh(state.curVehicleId));
+  }
+
+  var html = '<div class="hd"><h1>Fleet Registry</h1><div class="s">' + DB.V.length + ' Total Units</div></div>';
+
+  var groups = {};
+  for (var i = 0; i < CATS.length; i++) { groups[CATS[i][0]] = []; }
+  for (var j = 0; j < DB.V.length; j++) {
+    var v = DB.V[j];
+    if (!groups[v.c]) groups[v.c] = [];
+    groups[v.c].push(v);
+  }
+
+  for (var c in groups) {
+    var list = groups[c];
+    if (!list.length) continue;
+    html += '<h3>' + getIcon(c) + ' ' + c + ' (' + list.length + ')</h3><div class="wall">';
+    for (var k = 0; k < list.length; k++) {
+      var item = list[k];
+      html += '<button class="tl" onclick="openVehicle(\'' + item.id + '\')"><span>' + getIcon(item.c) + '</span>' + esc(item.no.slice(-6)) + '</button>';
+    }
+    html += '</div>';
+  }
+
+  html += renderAddVehicleForm();
+  return html;
+}
+
+function renderAddVehicleForm() {
+  var catOpts = "";
+  for (var i = 0; i < CATS.length; i++) {
+    catOpts += '<option value="' + CATS[i][0] + '">' + CATS[i][1] + ' ' + CATS[i][0] + '</option>';
+  }
+  var firmOpts = '<option value="">(No Firm)</option>';
+  for (var j = 0; j < DB.FIRMS.length; j++) {
+    firmOpts += '<option value="' + esc(DB.FIRMS[j]) + '">' + esc(DB.FIRMS[j]) + '</option>';
+  }
+
+  return '<div class="c" style="margin-top:16px"><b>+ Register New Vehicle</b>' +
+    '<input id="new_vno" placeholder="Vehicle Plate No (e.g. BR01GA1234)">' +
+    '<input id="new_vnm" placeholder="Vehicle Name / Nickname">' +
+    '<select id="new_vc">' + catOpts + '</select>' +
+    '<select id="new_vf">' + firmOpts + '</select>' +
+    '<input id="new_vrd" type="number" placeholder="Initial Reading">' +
+    '<button class="b" style="margin-top:8px;width:100%" onclick="saveNewVehicle()">Save Vehicle</button>' +
+  '</div>';
+}
+
+function saveNewVehicle() {
+  var no = document.getElementById("new_vno").value.trim().toUpperCase();
+  var nm = document.getElementById("new_vnm").value.trim();
+  var c = document.getElementById("new_vc").value;
+  var f = document.getElementById("new_vf").value;
+  var rd = +document.getElementById("new_vrd").value || 0;
+
+  if (!no) { alert("Please enter plate number"); return; }
+  for (var i = 0; i < DB.V.length; i++) {
+    if (DB.V[i].no === no) { alert("This vehicle number already exists"); return; }
+  }
+
+  DB.V.push({ id: "v" + uid(), no: no, nm: nm || no, c: c, f: f, rd: rd, rc: {} });
+  persist();
+  render();
+}
+
+function viewVehicleDetails(v) {
+  var u = getUnit(v.c);
+  var tabs = [["alerts","Alerts"],["rc","RC & Category"],["papers","Papers"],["emi","EMI"],["svc","Maintenance"]];
+
+  var html = '<div class="hd">' +
+    '<div class="r"><button class="s" style="color:#fff;border-color:rgba(255,255,255,.3)" onclick="setTab(\'fleet\')">‹ Back to Fleet</button><span class="sp"></span><span style="font-size:12px;opacity:.9">' + esc(v.f||"No Firm") + '</span></div>' +
+    '<div style="text-align:center;margin-top:6px">' +
+      '<div style="font-size:40px;line-height:1">' + getIcon(v.c) + '</div>' +
+      '<div style="margin:6px 0"><span class="plate ' + (v.c=="Truck"?"yl":"") + '"><i>IND</i><b>' + esc(v.no) + '</b></span></div>' +
+      '<div style="font-size:13px;opacity:.9">' + esc(v.nm) + ' · Current: ' + (v.rd||0) + ' ' + u + '</div>' +
+    '</div>' +
+  '</div>';
+
+  html += '<div class="chips">';
+  for (var i = 0; i < tabs.length; i++) {
+    var on = (state.subTab == tabs[i][0]) ? "on" : "";
+    html += '<button class="' + on + '" onclick="setSubTab(\'' + tabs[i][0] + '\')">' + tabs[i][1] + '</button>';
+  }
+  html += '</div>';
+
+  if (state.subTab === "alerts") {
+    var vAlerts = getAlerts().filter(function(a){ return a.vid == v.id; });
+    if (!vAlerts.length) {
+      html += '<div class="c" style="color:var(--gn);font-weight:600">✓ Everything clear for this vehicle.</div>';
+    } else {
+      for (var j = 0; j < vAlerts.length; j++) {
+        var al = vAlerts[j];
+        html += '<div class="c l' + al.lv + '">' +
+          '<div class="t' + al.lv + '">' + esc(al.msg) + '</div>' +
+          '<button class="b" style="margin-top:6px" onclick="resolveItem(\'' + al.type + '\',\'' + al.id + '\')">Renew / Done</button>' +
+        '</div>';
+      }
+    }
+  } else if (state.subTab === "rc") {
+    var catOpts = "";
+    for (var cIdx = 0; cIdx < CATS.length; cIdx++) {
+      var cat = CATS[cIdx][0];
+      catOpts += '<option value="' + cat + '" ' + (v.c == cat ? "selected" : "") + '>' + CATS[cIdx][1] + ' ' + cat + '</option>';
+    }
+
+    var firmOpts = '<option value="">(No Firm)</option>';
+    for (var fIdx = 0; fIdx < DB.FIRMS.length; fIdx++) {
+      var fm = DB.FIRMS[fIdx];
+      firmOpts += '<option value="' + esc(fm) + '" ' + (v.f == fm ? "selected" : "") + '>' + esc(fm) + '</option>';
+    }
+    firmOpts += '<option value="__new">+ Add New Firm...</option>';
+
+    var rc = v.rc || {};
+
+    html += '<div class="c"><b>Reassign Vehicle Category & Firm</b>' +
+      '<label class="mu">Category</label><select id="edit_vc">' + catOpts + '</select>' +
+      '<label class="mu">Firm / Company</label><select id="edit_vf" onchange="toggleFirmInput(this.value)">' + firmOpts + '</select>' +
+      '<div id="new_firm_wrap" style="display:none"><input id="new_firm_name" placeholder="Type new firm name"></div>' +
+      '<label class="mu">Vehicle Nickname</label><input id="edit_vnm" value="' + esc(v.nm) + '">' +
+      '<label class="mu">Current Reading (' + u + ')</label><input id="edit_vrd" type="number" value="' + (v.rd||0) + '">' +
+      '<button class="b" style="width:100%;margin-top:8px" onclick="saveVehicleReassignment(\'' + v.id + '\')">Save Vehicle Updates</button>' +
+    '</div>' +
+    '<div class="c"><b>RC & Registration Specifications</b>' +
+      '<label class="mu">Owner Name</label><input id="rc_own" value="' + esc(rc.owner||"") + '">' +
+      '<label class="mu">Fuel Type</label><input id="rc_fuel" value="' + esc(rc.fuel||"Diesel") + '">' +
+      '<label class="mu">Chassis Number</label><input id="rc_ch" value="' + esc(rc.chassis||"") + '">' +
+      '<label class="mu">Engine Number</label><input id="rc_en" value="' + esc(rc.engine||"") + '">' +
+      '<button class="b" style="width:100%;margin-top:8px" onclick="saveRcDetails(\'' + v.id + '\')">Save RC Specifications</button>' +
+    '</div>' +
+    '<button class="nd" style="width:100%;margin-top:6px" onclick="deleteVehicle(\'' + v.id + '\')">Permanently Delete Vehicle</button>';
+  } else if (state.subTab === "papers") {
+    var pList = DB.D.filter(function(d){ return d.vid == v.id; });
+    for (var p = 0; p < pList.length; p++) {
+      var itemP = pList[p];
+      html += '<div class="c"><div class="r"><b>' + esc(itemP.k) + '</b><span class="sp"></span><span>Expiry: ' + (itemP.ex || "Permanent") + '</span></div>' +
+        '<div class="r" style="margin-top:8px"><button class="s" onclick="resolveItem(\'d\',\'' + itemP.id + '\')">Update Expiry</button><button class="nd" onclick="removePaper(\'' + itemP.id + '\')">Remove</button></div>' +
+      '</div>';
+    }
+
+    var kOpts = "";
+    for (var kIdx = 0; kIdx < KINDS.length; kIdx++) {
+      kOpts += '<option>' + KINDS[kIdx] + '</option>';
+    }
+
+    html += '<div class="c"><b>+ Add Document</b>' +
+      '<select id="add_pk">' + kOpts + '</select>' +
+      '<input id="add_pex" type="date">' +
+      '<button class="b" style="margin-top:6px" onclick="addPaperRecord(\'' + v.id + '\')">Add Paper</button>' +
+    '</div>';
+  } else if (state.subTab === "emi") {
+    var eList = DB.E.filter(function(e){ return e.vid == v.id; });
+    for (var eIdx = 0; eIdx < eList.length; eIdx++) {
+      var emi = eList[eIdx];
+      html += '<div class="c"><div class="r"><b>' + esc(emi.ln) + '</b><span class="sp"></span>' + inr(emi.amt) + '/mo</div>' +
+        '<div class="mu">Debited from: ' + esc(emi.bk) + ' · Next due: ' + emi.due + '</div>' +
+        '<div class="r" style="margin-top:8px"><button class="s" onclick="resolveItem(\'e\',\'' + emi.id + '\')">Mark Paid</button><button class="nd" onclick="removeEmi(\'' + emi.id + '\')">Remove</button></div>' +
+      '</div>';
+    }
+
+    html += '<div class="c"><b>+ Add Loan / EMI</b>' +
+      '<input id="add_eln" placeholder="Financer (e.g. HDFC Bank)">' +
+      '<input id="add_ebk" placeholder="Debited Bank (e.g. Jay Axis Bank)">' +
+      '<input id="add_eamt" type="number" placeholder="Monthly EMI Amount">' +
+      '<input id="add_edue" type="date" placeholder="Next Due Date">' +
+      '<button class="b" style="margin-top:6px" onclick="addEmiRecord(\'' + v.id + '\')">Save Loan</button>' +
+    '</div>';
+  } else if (state.subTab === "svc") {
+    var sList = DB.Sv.filter(function(s){ return s.vid == v.id; });
+    for (var sIdx = 0; sIdx < sList.length; sIdx++) {
+      var svc = sList[sIdx];
+      var nextM = (svc.last || 0) + (svc.int || 0);
+      html += '<div class="c"><div class="r"><b>' + esc(svc.lb) + '</b><span class="sp"></span>Next at: ' + nextM + ' ' + u + '</div>' +
+        '<div class="mu">Every ' + svc.int + ' ' + u + ' (Last completed at: ' + svc.last + ' ' + u + ')</div>' +
+        '<button class="b" style="margin-top:6px" onclick="resolveItem(\'s\',\'' + svc.id + '\')">Mark Service Done</button>' +
+      '</div>';
+    }
+
+    html += '<div class="c"><b>+ Add Service Routine</b>' +
+      '<input id="add_slb" placeholder="Task Name (e.g. Engine Oil)">' +
+      '<input id="add_sint" type="number" placeholder="Interval (e.g. 5000)">' +
+      '<input id="add_slast" type="number" placeholder="Last done reading">' +
+      '<button class="b" style="margin-top:6px" onclick="addServiceRecord(\'' + v.id + '\')">Save Schedule</button>' +
+    '</div>';
+  }
+
+  return html;
+}
+
+function setSubTab(st) {
+  state.subTab = st;
+  render();
+}
+
+function toggleFirmInput(val) {
+  var w = document.getElementById("new_firm_wrap");
+  if (w) w.style.display = (val === "__new") ? "block" : "none";
+}
+
+function saveVehicleReassignment(vid) {
+  var v = getVeh(vid);
+  var selCat = document.getElementById("edit_vc").value;
+  var selFirm = document.getElementById("edit_vf").value;
+  var newNm = document.getElementById("edit_vnm").value.trim();
+  var newRd = +document.getElementById("edit_vrd").value || 0;
+
+  if (selFirm === "__new") {
+    var typedFirm = document.getElementById("new_firm_name").value.trim();
+    if (typedFirm) {
+      if (DB.FIRMS.indexOf(typedFirm) < 0) DB.FIRMS.push(typedFirm);
+      selFirm = typedFirm;
+    } else {
+      selFirm = "";
+    }
+  }
+
+  v.c = selCat;
+  v.f = selFirm;
+  v.nm = newNm || v.no;
+  v.rd = newRd;
+
+  persist();
+  render();
+  flash("Vehicle Details Updated ✓");
+}
+
+function saveRcDetails(vid) {
+  var v = getVeh(vid);
+  v.rc = v.rc || {};
+  v.rc.owner = document.getElementById("rc_own").value.trim();
+  v.rc.fuel = document.getElementById("rc_fuel").value.trim();
+  v.rc.chassis = document.getElementById("rc_ch").value.trim();
+  v.rc.engine = document.getElementById("rc_en").value.trim();
+
+  persist();
+  flash("RC Specifications Saved ✓");
+}
+
+function deleteVehicle(vid) {
+  if (!confirm("Are you sure you want to permanently delete this vehicle and all attached logs?")) return;
+  DB.V = DB.V.filter(function(v){ return v.id !== vid; });
+  DB.D = DB.D.filter(function(d){ return d.vid !== vid; });
+  DB.E = DB.E.filter(function(e){ return e.vid !== vid; });
+  DB.Sv = DB.Sv.filter(function(s){ return s.vid !== vid; });
+  state.curVehicleId = null;
+  persist();
+  render();
+}
+
+function addPaperRecord(vid) {
+  var k = document.getElementById("add_pk").value;
+  var ex = document.getElementById("add_pex").value;
+  DB.D.push({ id: "d" + uid(), vid: vid, k: k, ex: ex });
+  persist();
+  render();
+}
+
+function removePaper(id) {
+  DB.D = DB.D.filter(function(d){ return d.id !== id; });
+  persist();
+  render();
+}
+
+function addEmiRecord(vid) {
+  var ln = document.getElementById("add_eln").value.trim();
+  var bk = document.getElementById("add_ebk").value.trim();
+  var amt = +document.getElementById("add_eamt").value || 0;
+  var due = document.getElementById("add_edue").value || offsetDate(30);
+
+  if (!amt) { alert("Please enter EMI amount"); return; }
+  DB.E.push({ id: "e" + uid(), vid: vid, ln: ln || "Financer", bk: bk || "-", amt: amt, due: due });
+  persist();
+  render();
+}
+
+function removeEmi(id) {
+  DB.E = DB.E.filter(function(e){ return e.id !== id; });
+  persist();
+  render();
+}
+
+function addServiceRecord(vid) {
+  var lb = document.getElementById("add_slb").value.trim();
+  var interval = +document.getElementById("add_sint").value || 500;
+  var last = +document.getElementById("add_slast").value || 0;
+
+  DB.Sv.push({ id: "s" + uid(), vid: vid, lb: lb || "Service Routine", int: interval, last: last });
+  persist();
+  render();
+}
+
+function resolveItem(type, id) {
+  if (type === "d") {
+    var paper = null;
+    for (var i = 0; i < DB.D.length; i++) { if (DB.D[i].id == id) paper = DB.D[i]; }
+    if (!paper) return;
+
+    var nextYear = new Date();
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+    showModal('<b>Renew Paper: ' + esc(paper.k) + '</b><div class="mu" style="margin:6px 0">Select new validity expiry date:</div>' +
+      '<input id="rnw_val" type="date" value="' + fmtDate(nextYear) + '">' +
+      '<div class="r" style="margin-top:10px">' +
+        '<button class="b" onclick="savePaperRenewal(\'' + id + '\')">Update Expiry</button>' +
+        '<button class="s" onclick="closeModal()">Cancel</button>' +
+      '</div>');
+  } else if (type === "e") {
+    for (var j = 0; j < DB.E.length; j++) {
+      if (DB.E[j].id == id) {
+        DB.E[j].due = addMonth(DB.E[j].due);
+        break;
+      }
+    }
+    persist();
+    render();
+  } else if (type === "s") {
+    for (var k = 0; k < DB.Sv.length; k++) {
+      if (DB.Sv[k].id == id) {
+        var v = getVeh(DB.Sv[k].vid);
+        DB.Sv[k].last = v.rd || 0;
+        break;
+      }
+    }
+    persist();
+    render();
+  }
+}
+
+function savePaperRenewal(id) {
+  var val = document.getElementById("rnw_val").value;
+  if (!val) return;
+  for (var i = 0; i < DB.D.length; i++) {
+    if (DB.D[i].id == id) {
+      DB.D[i].ex = val;
+      break;
+    }
+  }
+  persist();
+  closeModal();
+  render();
+}
+
+function viewMoney() {
+  var list = DB.E.filter(function(e){ return diffDays(e.due) <= 30; }).sort(function(a,b){ return a.due.localeCompare(b.due); });
+  var tot = list.reduce(function(acc, x){ return acc + (+x.amt || 0); }, 0);
+
+  var html = '<div class="hd"><h1>Money & EMIs</h1><div class="s">Next 30 days total liability: ' + inr(tot) + '</div></div>' +
+  '<div class="r" style="margin-bottom:8px"><button class="s" onclick="setTab(\'rep\')">📄 Open Full EMI Report</button></div>' +
+  '<div class="c"><b>Upcoming Due Dates</b>';
+
+  if (!list.length) {
+    html += '<div class="mu" style="margin-top:6px">No EMIs due in the next 30 days.</div>';
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      var item = list[i];
+      var v = getVeh(item.vid);
+      html += '<div class="r" style="padding:8px 0;border-top:1px solid var(--bd)">' +
+        '<div><b>' + esc(v.no) + '</b><div class="mu">Financer: ' + esc(item.ln) + ' · Bank: ' + esc(item.bk) + '</div></div>' +
+        '<span class="sp"></span>' +
+        '<div style="text-align:right"><b>' + inr(item.amt) + '</b><div class="mu">Due: ' + item.due + '</div></div>' +
+        '<button class="b" style="margin-left:8px" onclick="resolveItem(\'e\',\'' + item.id + '\')">Paid</button>' +
+      '</div>';
+    }
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function viewReadings() {
+  var html = '<div class="hd"><h1>Quick Readings Update</h1><div class="s">Update current odometer / hour meter</div></div>';
+
+  var machines = DB.V.filter(function(v){ return getUnit(v.c) === "hrs"; });
+  var roadVehicles = DB.V.filter(function(v){ return getUnit(v.c) === "km"; });
+
+  function renderGroup(title, list, u) {
+    var out = '<h3>' + title + ' (' + u + ')</h3><div class="c">';
+    if (!list.length) out += '<div class="mu">None registered.</div>';
+    for (var i = 0; i < list.length; i++) {
+      var v = list[i];
+      out += '<div class="r" style="padding:6px 0;border-top:1px solid var(--bd)">' +
+        '<span style="width:110px"><b>' + esc(v.no) + '</b></span>' +
+        '<span class="mu sp">' + esc(v.nm) + '</span>' +
+        '<input style="width:120px" type="number" value="' + (v.rd||0) + '" onchange="quickUpdateReading(\'' + v.id + '\', this.value)">' +
+      '</div>';
+    }
+    return out + '</div>';
+  }
+
+  html += renderGroup("Hour Machines", machines, "hrs");
+  html += renderGroup("Kilometer Vehicles", roadVehicles, "km");
+  return html;
+}
+
+function quickUpdateReading(vid, val) {
+  var v = getVeh(vid);
+  v.rd = +val || 0;
+  persist();
+}
+
+function viewReports() {
+  var dt = offsetDate(0);
+  var html = '<div class="hd"><h1>Report Generation</h1><div class="s">As on ' + dt + '</div></div>';
+
+  html += '<div class="chips">' +
+    '<button class="' + (state.repType=="e"?"on":"") + '" onclick="setRepType(\'e\')">EMI Schedule Report</button>' +
+    '<button class="' + (state.repType=="p"?"on":"") + '" onclick="setRepType(\'p\')">Papers Expiry Report</button>' +
+  '</div>';
+
+  if (state.repType === "e") {
+    html += '<div class="chips">' +
+      '<button class="' + (state.repOnlyNext?"on":"") + '" onclick="setRepNext(true)">Only Next Due Date</button>' +
+      '<button class="' + (!state.repOnlyNext?"on":"") + '" onclick="setRepNext(false)">All Due Next 30 Days</button>' +
+    '</div>';
+  }
+
+  var reportData = buildReportData();
+  html += '<div class="c"><pre style="white-space:pre-wrap;font-size:12px;background:var(--bg);padding:10px;border-radius:8px">' + esc(reportData.text) + '</pre></div>' +
+  '<div class="r" style="margin-top:10px">' +
+    '<a class="b" target="_blank" href="https://wa.me/?text=' + encodeURIComponent(reportData.text) + '">Send on WhatsApp</a>' +
+    '<button class="s" onclick="generateReportImage()">Show & Download Image (PNG)</button>' +
+  '</div>';
+
+  return html;
+}
+
+function setRepType(t) {
+  state.repType = t;
+  render();
+}
+
+function setRepNext(val) {
+  state.repOnlyNext = val;
+  render();
+}
+
+function buildReportData() {
+  var dt = offsetDate(0);
+  var out = { text: "", title: "", headers: [], rows: [] };
+
+  if (state.repType === "e") {
+    out.title = "EMI OUTLAYS REPORT";
+    out.headers = ["#", "Vehicle", "Financer", "Debited Bank / Account", "Amount"];
+    var list = DB.E.filter(function(e){ return diffDays(e.due) <= 30; }).sort(function(a,b){ return a.due.localeCompare(b.due); });
+
+    if (state.repOnlyNext && list.length) {
+      var firstDate = list[0].due;
+      list = list.filter(function(e){ return e.due === firstDate; });
+    }
+
+    var total = list.reduce(function(acc, x){ return acc + (+x.amt || 0); }, 0);
+    out.text = "*" + out.title + "*\nAs on: " + dt + "\nTotal EMI Amount: " + inr(total) + "\n\n";
+
+    for (var i = 0; i < list.length; i++) {
+      var e = list[i];
+      var v = getVeh(e.vid);
+      out.rows.push([i + 1, v.no, e.ln, e.bk || "-", inr(e.amt)]);
+      out.text += (i + 1) + ". *" + v.no + "*\n   Financer: " + e.ln + "\n   Debited: " + (e.bk || "-") + "\n   Amount: " + inr(e.amt) + " (Due: " + e.due + ")\n\n";
+    }
+    out.text += "*Total Liabilities: " + inr(total) + "*";
+  } else {
+    out.title = "PAPERS EXPIRY REPORT";
+    out.headers = ["#", "Vehicle", "Document", "Expiry Date"];
+    var pList = DB.D.filter(function(d){ return d.ex && diffDays(d.ex) <= 30; }).sort(function(a,b){ return a.ex.localeCompare(b.ex); });
+
+    out.text = "*" + out.title + "*\nAs on: " + dt + "\nTotal Papers: " + pList.length + "\n\n";
+    for (var j = 0; j < pList.length; j++) {
+      var dItem = pList[j];
+      var vItem = getVeh(dItem.vid);
+      out.rows.push([j + 1, vItem.no, dItem.k, dItem.ex]);
+      out.text += (j + 1) + ". *" + vItem.no + "* - " + dItem.k + " - Expiry: " + dItem.ex + (diffDays(dItem.ex) < 0 ? " (EXPIRED)" : "") + "\n";
+    }
+  }
+
+  return out;
+}
+
+function generateReportImage() {
+  var data = buildReportData();
+  var W = 720;
+  var rowH = 32;
+  var H = 140 + (data.rows.length + 1) * rowH;
+
+  var canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  var ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = "#0b6e4f";
+  ctx.fillRect(0, 0, W, 70);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 20px sans-serif";
+  ctx.fillText(data.title, 20, 32);
+  ctx.font = "12px sans-serif";
+  ctx.fillText("Generated on: " + offsetDate(0), 20, 54);
+
+  var y = 95;
+  var colWidths = (data.headers.length === 5) ? [35, 140, 170, 230, 105] : [40, 200, 260, 180];
+
+  function drawRow(cells, isHead) {
+    ctx.fillStyle = isHead ? "#24303e" : "#ffffff";
+    ctx.fillRect(20, y, W - 40, rowH);
+    ctx.strokeStyle = "#e2e8f0";
+    ctx.strokeRect(20, y, W - 40, rowH);
+
+    ctx.fillStyle = isHead ? "#ffffff" : "#111827";
+    ctx.font = (isHead ? "bold 12px " : "12px ") + "sans-serif";
+
+    var cx = 25;
+    for (var i = 0; i < cells.length; i++) {
+      ctx.fillText(String(cells[i]), cx, y + 21);
+      cx += colWidths[i];
+    }
+    y += rowH;
+  }
+
+  drawRow(data.headers, true);
+  for (var r = 0; r < data.rows.length; r++) {
+    drawRow(data.rows[r], false);
+  }
+
+  var imgUrl = canvas.toDataURL("image/png");
+  showModal('<b>Report Image Generated</b><div class="mu" style="margin:6px 0">Download PNG file directly to your phone storage:</div>' +
+    '<img src="' + imgUrl + '" style="width:100%;border:1px solid var(--bd);border-radius:8px">' +
+    '<div class="r" style="margin-top:10px">' +
+      '<a class="b" download="Fleet_Report_' + offsetDate(0) + '.png" href="' + imgUrl + '">Download Image (PNG)</a>' +
+      '<button class="s" onclick="closeModal()">Close</button>' +
+    '</div>');
+}
+
+function viewData() {
+  return '<div class="hd"><h1>Data & Backup</h1><div class="s">Export, restore and firm configuration</div></div>' +
+  '<div class="c"><b>Backup & Restore (JSON)</b>' +
+    '<div class="mu" style="margin:6px 0">All records save locally in this browser. Create a complete file backup anytime to keep safe.</div>' +
+    '<div class="r" style="margin-top:8px">' +
+      '<button class="b" onclick="downloadBackup()">Download JSON Backup</button>' +
+      '<label class="s" style="cursor:pointer">Restore from JSON<input type="file" accept=".json" style="display:none" onchange="restoreBackup(this.files[0])"></label>' +
+    '</div>' +
+  '</div>' +
+  '<div class="c"><b>Registered Companies / Firms</b>' +
+    renderFirmsList() +
+    '<div class="r" style="margin-top:8px"><input id="new_firm_input" placeholder="Company / Firm name" style="flex:1"><button class="b" onclick="addNewFirm()">Add Firm</button></div>' +
+  '</div>';
+}
+
+function renderFirmsList() {
+  var out = "";
+  for (var i = 0; i < DB.FIRMS.length; i++) {
+    out += '<div class="r" style="padding:4px 0;border-top:1px solid var(--bd)">' +
+      '<span class="sp">' + esc(DB.FIRMS[i]) + '</span>' +
+      '<button class="nd" onclick="removeFirm(' + i + ')">✕</button>' +
+    '</div>';
+  }
+  return out;
+}
+
+function addNewFirm() {
+  var name = document.getElementById("new_firm_input").value.trim();
+  if (!name) return;
+  if (DB.FIRMS.indexOf(name) < 0) DB.FIRMS.push(name);
+  persist();
+  render();
+}
+
+function removeFirm(idx) {
+  DB.FIRMS.splice(idx, 1);
+  persist();
+  render();
+}
+
+function downloadBackup() {
+  var dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(DB));
+  var a = document.createElement("a");
+  a.href = dataStr;
+  a.download = "Fleet_Control_Backup_" + offsetDate(0) + ".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function restoreBackup(file) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function() {
+    try {
+      var parsed = JSON.parse(reader.result);
+      if (Array.isArray(parsed.V)) DB.V = parsed.V;
+      if (Array.isArray(parsed.D)) DB.D = parsed.D;
+      if (Array.isArray(parsed.E)) DB.E = parsed.E;
+      if (Array.isArray(parsed.Sv)) DB.Sv = parsed.Sv;
+      if (Array.isArray(parsed.FIRMS)) DB.FIRMS = parsed.FIRMS;
+      persist();
+      render();
+      alert("Backup successfully restored!");
+    } catch(err) {
+      alert("Invalid backup file.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+
+function render() {
+  renderNav();
+  var app = document.getElementById("app");
+  if (!app) return;
+
+  var views = {
+    board: viewBoard,
+    fleet: viewFleet,
+    money: viewMoney,
+    upd: viewReadings,
+    rep: viewReports,
+    data: viewData
+  };
+
+  app.innerHTML = (views[state.tab] || viewBoard)();
+}
+
+initStorage();
+render();
 </script>
 </body>
 </html>
